@@ -7,10 +7,11 @@ const MovieApi = createApi({
   }),
   endpoints: (builder) => ({
     getMovies: builder.query({
-      query: (num) => `/list_movies.json?page=${num}`,
+      query: (query) => `/list_movies.json${query}`,
     }),
     getSingleMovies: builder.query({
-      query: (id) => `/movie_details.json?movie_id=${id}`,
+      query: (id) =>
+        `/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`,
     }),
     getSuggestionsMovies: builder.query({
       query: (id) => `/movie_suggestions.json?movie_id=${id}`,
