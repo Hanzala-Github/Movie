@@ -1,28 +1,37 @@
-import React, { useState } from "react";
+import queryString from "query-string";
+import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { MovieCard } from "../MovieCard/MovieCard";
 import {
   // useGetMoviesPaginationQuery,
   useGetMoviesQuery,
 } from "../../redux/features/MovieApi";
-import { FaStar } from "react-icons/fa";
 import { Loader } from "../Loader/Loader";
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-
+import { MovieCard } from "../MovieCard/MovieCard";
 export function MovieContainer() {
-  const [num, setNum] = useState(1);
-  const { data, isLoading, isSuccess, isError, error } = useGetMoviesQuery(num);
+  const location = useLocation();
+
+  console.log({ location });
+  const { data, isLoading, isSuccess, isError, error, refetch } =
+    useGetMoviesQuery(location.search);
+  const nav = useNavigate();
+
+  const qs = queryString.parse(location.search);
+
+  console.log(qs);
 
   const handleLeftSidePagination = () => {
-    setNum(num + 1);
+    const newPage = Number(qs.page || 0);
+
+    const newQs = { ...qs };
+
+    newQs.page = Math.max(newPage - 1, 0);
+
+    nav(`${location.pathname}?${queryString.stringify(newQs)}`);
   };
   const handleRightSidePagination = () => {
-    if (num > 1) {
-      setNum(num - 1);
-    } else {
-      setNum(1);
-    }
+    const newPage = Number(qs.page || 0);
+    nav(`${location.pathname}?page=${newPage + 1}`);
   };
 
   // .........This is the JSX return part............//
@@ -30,10 +39,10 @@ export function MovieContainer() {
     <Wrapper>
       <WrapperContainer>
         <div className="pagination">
-          <button className="btn1" onClick={handleRightSidePagination}>
+          <button className="btn1" onClick={handleLeftSidePagination}>
             <FaArrowLeft />
           </button>
-          <button className="btn2" onClick={handleLeftSidePagination}>
+          <button className="btn2" onClick={handleRightSidePagination}>
             <FaArrowRight />
           </button>
         </div>
