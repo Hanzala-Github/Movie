@@ -2,6 +2,9 @@ import queryString from "query-string";
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+// import queryString from "query-string";
+
 import {
   // useGetMoviesPaginationQuery,
   useGetMoviesQuery,
@@ -12,8 +15,9 @@ export function MovieContainer() {
   const location = useLocation();
 
   console.log({ location });
-  const { data, isLoading, isSuccess, isError, error, refetch } =
-    useGetMoviesQuery(location.search);
+  const { data, isLoading, isSuccess, isError, error } = useGetMoviesQuery(
+    location.search
+  );
   const nav = useNavigate();
 
   const qs = queryString.parse(location.search);
@@ -30,7 +34,7 @@ export function MovieContainer() {
     nav(`${location.pathname}?${queryString.stringify(newQs)}`);
   };
   const handleRightSidePagination = () => {
-    const newPage = Number(qs.page || 0);
+    const newPage = Number(qs.page || 1);
     nav(`${location.pathname}?page=${newPage + 1}`);
   };
 
@@ -49,7 +53,7 @@ export function MovieContainer() {
         <div className="heading">
           <h1>Download YTS YIFY movies: HD smallest size</h1>
           <div className="downloads">
-            <span style={{ color: "#0d941f" }}>
+            <span style={{ color: "#6AC045" }}>
               <FaStar />
             </span>
             <h3>Popular Downloads</h3>
@@ -84,7 +88,7 @@ const WrapperContainer = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: #444;
+  /* background-color: #444; */
   min-height: 100vh;
   position: relative;
 

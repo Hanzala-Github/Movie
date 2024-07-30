@@ -15,8 +15,8 @@ export default function () {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<MovieContainer />} />
-          <Route path="/:id" element={<SingleMovie />} />
+          <Route exact path="/" element={<MovieContainer />} />
+          <Route exact path="/:id" element={<SingleMovie />} />
         </Routes>
       </BrowserRouter>
     </div>

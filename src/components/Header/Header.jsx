@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Flex, Text, Button, HStack, Link, Img } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, HStack, Img } from "@chakra-ui/react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
@@ -14,10 +15,12 @@ export function Header() {
           paddingInline="3rem"
           paddingBlock="5px"
         >
-          <Img
-            src="https://yts.mx/assets/images/website/logo-YTS.svg"
-            width="105px"
-          ></Img>
+          <Link to="/">
+            <Img
+              src="https://yts.mx/assets/images/website/logo-YTS.svg"
+              width="105px"
+            ></Img>
+          </Link>
           <HStack spacing={8}>
             <Link
               className="link"

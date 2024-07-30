@@ -3,13 +3,19 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   useGetSingleMoviesQuery,
+  useGetSingleMovieWithImagesQuery,
   useGetSuggestionsMoviesQuery,
 } from "../../redux/features/MovieApi";
 import { SingleMovieCard } from "./SingleMovieCard";
 import { FaHeart } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { DownloadPop } from "./DownloadPop";
+import { SingleMovieTrailer } from "./SingleMovieTrailer";
+import { TrailerImg } from "./TrailerImg";
+// import { SummeryCast } from "./SummeryCast";
+import { SummeryCast } from "../index";
 
+// .........This is the function component part........//
 export function SingleMovie() {
   const [DownloadPopup, setDownloadPopup] = useState(false);
 
@@ -18,7 +24,9 @@ export function SingleMovie() {
 
   const suggestionQuery = useGetSuggestionsMoviesQuery(id);
 
-  // console.log(singleMovieQuery.data?.data?.movie.torrents);
+  const singleMovieWithImages = useGetSingleMovieWithImagesQuery(id);
+
+  console.log(singleMovieWithImages.data?.data?.movie.medium_screenshot_image1);
 
   // console.log(suggestionQuery.data?.data?.movies[1]?.id);
   const movieImg = singleMovieQuery.data?.data?.movie.medium_cover_image;
@@ -26,9 +34,21 @@ export function SingleMovie() {
   const Rating = singleMovieQuery.data?.data?.movie.rating;
   const Imdb = singleMovieQuery.data?.data?.movie.imdb_code;
 
+  const genres = singleMovieQuery.data?.data?.movie;
+  console.log(genres);
+
+  const containerStyle = {
+    backgroundImage: `url(${movieImg})`,
+  };
+
+  // console.log();
+
+  const currentImdbCode = singleMovieQuery.data?.data?.movie?.imdb_code;
+
   //   ..........This is the JSX return part..........//
   return (
     <Wrapper>
+      <div className="backgroundImage" style={containerStyle}></div>
       <CardWrapper>
         {DownloadPopup ? (
           <DownloadPop
@@ -38,15 +58,6 @@ export function SingleMovie() {
         ) : (
           ""
         )}
-        {/* Real */}
-        {/* {DownloadPopup ? (
-          <DownloadPop
-            DownloadPopup={DownloadPopup}
-            setDownloadPopup={setDownloadPopup}
-          />
-        ) : (
-          ""
-        )} */}
         {/* Left */}
         <div className="left">
           <SingleMovieCard
@@ -60,13 +71,26 @@ export function SingleMovie() {
           <Link to="" style={{ textDecoration: "none" }}>
             <button className="btn1" onClick={() => setDownloadPopup(true)}>
               <span>
-                <FiDownload />
+                <FiDownload style={{ fontSize: "20px", color: "#e7e7e7" }} />
               </span>
               Download
             </button>
           </Link>
-          <Link to="" style={{ textDecoration: "none" }}>
-            <button className="btn2">Watch Now</button>
+          <Link
+            to={`https://www.imdb.com/title/${currentImdbCode}/?ref_=hm_stp_pvs_piv_tt_i_2`}
+            target="_"
+            style={{ textDecoration: "none" }}
+          >
+            <button className="btn2">
+              <span>
+                {" "}
+                <img
+                  src="https://yts.mx/assets/images/website/logo-imdb.svg"
+                  alt=""
+                />
+              </span>
+              IMBD
+            </button>
           </Link>
         </div>
         {/* Center */}
@@ -74,7 +98,11 @@ export function SingleMovie() {
           <h2>Bad Boys: Ride or Die</h2>
           <p className="p1">
             2024 <br />
-            Action / Adventure / Comedy / Crime / Thriller
+            {genres?.genres.map((g, i) => (
+              <span key={i} className="spanGenre">
+                {g} /{" "}
+              </span>
+            ))}
           </p>
           <div className="MovieQualites">
             <span className="span1">Avalible in : </span>
@@ -133,26 +161,43 @@ export function SingleMovie() {
           </div>
         </div>
       </CardWrapper>
+      <SingleMovieTrailer id={id} />
+      <SummeryCast />
     </Wrapper>
   );
 }
 
 // ...............This is the styled-component part..........//
 const Wrapper = styled.div`
+  position: relative;
   height: min-content;
-  background-color: #111;
-  padding-top: 50px;
+  /* height: 100vh; */
+  /* background-color: #111; */
+  /* padding-top: 50px; */
+
+  .backgroundImage {
+    position: absolute;
+    background-color: red;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: calc(100vh - 59px);
+    z-index: -1;
+    background-color: #111;
+    opacity: 0.1;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 `;
 const CardWrapper = styled.div`
-  /* width: 100vw; */
   max-width: 1200px;
   margin-inline: auto;
-  min-height: 100vh;
   color: #fff;
   display: flex;
   justify-content: space-between;
-  padding-top: 50px;
   gap: 15px;
+  padding-top: 50px;
 
   .left {
     display: flex;
@@ -168,6 +213,8 @@ const CardWrapper = styled.div`
       border-radius: 3px;
       background-color: #6ac045;
       color: #fff;
+      font-weight: 600;
+      font-size: 17px;
       cursor: pointer;
     }
 
@@ -182,7 +229,15 @@ const CardWrapper = styled.div`
       }
     }
     .btn2 {
-      background-color: #0aad9e;
+      background-color: #cfb702;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 25px;
+
+      img {
+        width: 60px;
+      }
     }
   }
 
@@ -202,6 +257,11 @@ const CardWrapper = styled.div`
       font-weight: 500;
       letter-spacing: -1px;
       font-size: 20px;
+      .spanGenre {
+        font-weight: 500;
+        letter-spacing: -1px;
+        font-size: 20px;
+      }
     }
     .p2 {
       font-size: 15px;

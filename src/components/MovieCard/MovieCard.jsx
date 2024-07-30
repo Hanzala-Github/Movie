@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import "./style.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 export function MovieCard(props) {
   const { img, title, year, rating, id } = props;
 
-  console.log(rating);
+  const [calculatedRating, setCalculatedRating] = useState(null);
 
   // ...........This is the JSX return part........//
   // console.log(id);
@@ -29,7 +29,7 @@ export function MovieCard(props) {
         <div className="cardText">
           <h3>{title}</h3>
           <p>{year}</p>
-          <p>{rating} ⭐⭐⭐</p>
+          <p style={{ color: "##6AC045" }}>⭐{rating}</p>
         </div>
 
         <div className="buttonContainer">

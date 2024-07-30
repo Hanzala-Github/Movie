@@ -16,9 +16,9 @@ const MovieApi = createApi({
     getSuggestionsMovies: builder.query({
       query: (id) => `/movie_suggestions.json?movie_id=${id}`,
     }),
-    // getMoviesPagination: builder.query({
-    //   query: (num) => `/list_movies.json?page=${num}`,
-    // }),
+    getSingleMovieWithImages: builder.query({
+      query: (id) => `/movie_details.json?movie_id=${id}&with_images=true`,
+    }),
   }),
 });
 
@@ -27,7 +27,7 @@ export const {
   useGetMoviesQuery,
   useGetSingleMoviesQuery,
   useGetSuggestionsMoviesQuery,
-  // useGetMoviesPaginationQuery,
+  useGetSingleMovieWithImagesQuery,
 } = MovieApi;
 
 // ?page=2

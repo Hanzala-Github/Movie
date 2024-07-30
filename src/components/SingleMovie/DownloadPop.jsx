@@ -24,39 +24,6 @@ export function DownloadPop(props) {
               video_codec={link.video_codec}
             />
           ))}
-
-          {/* <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton />
-          <DownloadButton /> */}
         </div>
       </Popup>
     </PopCardWrapper>
@@ -71,7 +38,6 @@ const PopCardWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 100vh;
-  /* height: min-content; */
   width: 100vw;
   background-color: #99999940;
   display: flex;
@@ -86,12 +52,8 @@ const PopCardWrapper = styled.div`
   }
 `;
 
-// const PopCardWrapper = styled.div`
-// `;
-
 const Popup = styled.div`
   width: 600px;
-  /* height: 100%; */
   position: fixed;
   top: 10%;
   transform: translateY(0%);
@@ -102,7 +64,6 @@ const Popup = styled.div`
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
-  /* z-index: 99; */
 
   .closeIcon {
     position: absolute;
@@ -121,7 +82,6 @@ const Popup = styled.div`
   }
 
   .pop_btn_Container {
-    /* background: green; */
     height: 100%;
     display: flex;
     padding-inline: 5px;
