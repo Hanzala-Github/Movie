@@ -8,15 +8,17 @@ import { useParams } from "react-router-dom";
 export function TrailerImg({ setTrailerimg }) {
   const { id } = useParams();
   const singleMoviedata = useGetSingleMoviesQuery(id);
-  console.log(singleMoviedata.data);
 
-  const image1 = singleMoviedata.data?.data?.movie?.large_screenshot_image1;
-  const image2 = singleMoviedata.data?.data?.movie?.large_screenshot_image2;
-  const image3 = singleMoviedata.data?.data?.movie?.large_screenshot_image3;
+  const ScreenShootImages = singleMoviedata.data?.data?.movie;
+
+  const image1 = ScreenShootImages?.large_screenshot_image1;
+  const image2 = ScreenShootImages?.large_screenshot_image2;
+  const image3 = ScreenShootImages?.large_screenshot_image3;
 
   const images = [image1, image2, image3];
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
 
+  // ..............Handle the trailer screenShot pagination..............//
   const handleNextImage = (e) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);

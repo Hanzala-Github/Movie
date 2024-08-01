@@ -3,12 +3,7 @@ import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// import queryString from "query-string";
-
-import {
-  // useGetMoviesPaginationQuery,
-  useGetMoviesQuery,
-} from "../../redux/features/MovieApi";
+import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
 import { MovieCard } from "../MovieCard/MovieCard";
 export function MovieContainer() {
@@ -158,7 +153,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
 `;

@@ -6,29 +6,29 @@ import { FaChevronRight } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useGetSingleMoviesQuery } from "../../redux/features/MovieApi";
 
-export function TrailerPhoto({ setTrailerPhoto, img }) {
+export function TrailerPhoto({ setTrailerPhoto }) {
   const { id } = useParams();
 
   const singleMovieData = useGetSingleMoviesQuery(id);
 
   const [currentIndex, setcurrentIndex] = useState(2);
 
-  const image1 = singleMovieData.data?.data?.movie.large_screenshot_image1;
-  const image2 = singleMovieData.data?.data?.movie.large_screenshot_image2;
-  const image3 = singleMovieData.data?.data?.movie.large_screenshot_image3;
+  const screenShotsImages = singleMovieData.data?.data?.movie;
+
+  const image1 = screenShotsImages.large_screenshot_image1;
+  const image2 = screenShotsImages.large_screenshot_image2;
+  const image3 = screenShotsImages.large_screenshot_image3;
 
   const images = [image1, image2, image3];
 
   const handlePrevImage = (e) => {
     e.stopPropagation();
     setcurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    console.log(currentIndex);
   };
 
   const handleNextImage = (e) => {
     e.stopPropagation();
     setcurrentIndex((prev) => (prev + 1) % images.length);
-    console.log(currentIndex);
   };
 
   //   ...........This is the JSX return part ......//

@@ -1,14 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
-// import "./style.css";
+import React from "react";
+import { FaStar } from "react-icons/fa6";
+import { FaStarHalfAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 export function MovieCard(props) {
   const { img, title, year, rating, id } = props;
 
-  const [calculatedRating, setCalculatedRating] = useState(null);
+  const SingleCardRating = (starRating) => {
+    const stars = [];
+
+    const currentPersentage = (starRating / 10) * 5;
+
+    const isHalfStar = starRating % 1 && starRating !== 0;
+
+    for (let i = 0; i < currentPersentage; i++) {
+      stars.push(<FaStar key={i} className="rating" />);
+    }
+
+    if (isHalfStar) {
+      stars.pop();
+      stars.push(<FaStarHalfAlt className="rating" />);
+    }
+
+    return stars;
+  };
 
   // ...........This is the JSX return part........//
-  // console.log(id);
   return (
     <Link
       style={{ textDecoration: "none" }}
@@ -29,12 +46,7 @@ export function MovieCard(props) {
         <div className="cardText">
           <h3>{title}</h3>
           <p>{year}</p>
-          <p style={{ color: "##6AC045" }}>⭐{rating}</p>
-        </div>
-
-        <div className="buttonContainer">
-          <button className="btn1">Download</button>
-          <button className="btn2">Play</button>
+          <p>{SingleCardRating(rating)}</p>
         </div>
       </Card>
     </Link>
@@ -44,7 +56,6 @@ export function MovieCard(props) {
 const Card = styled.div`
   position: relative;
   width: 210px;
-  /* height: 340px; */
   overflow: hidden;
   color: #fff;
   cursor: pointer;
@@ -52,6 +63,7 @@ const Card = styled.div`
   .cardImg {
     height: 80%;
     overflow: hidden;
+    cursor: pointer;
     img {
       width: 100%;
       height: 100%;
@@ -63,34 +75,22 @@ const Card = styled.div`
   }
 
   .cardText {
+    p {
+      margin-block: 5px;
+    }
     h3 {
       font-size: 1rem;
       font-weight: 500;
     }
-  }
+    .rating {
+      color: yellow;
+      margin-right: 5px;
 
-  .buttonContainer {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    .btn1,
-    .btn2 {
-      padding: 0.6rem 2rem;
-      background-color: red;
-      color: #fff;
-      border: none;
-      opacity: 0.6;
-      transition: all 0.2s ease;
-    }
-    .btn1 {
-      transform: translateX(-150%);
-    }
-    .btn2 {
-      transform: translateX(150%);
+      &:hover {
+        color: green;
+        transition: all 0.3s;
+        scale: 1.3;
+      }
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
 import { DownloadButton } from "../index";
@@ -38,7 +38,7 @@ const PopCardWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   background-color: #99999940;
   display: flex;
   align-items: center;

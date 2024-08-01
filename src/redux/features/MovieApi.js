@@ -29,5 +29,3 @@ export const {
   useGetSuggestionsMoviesQuery,
   useGetSingleMovieWithImagesQuery,
 } = MovieApi;
-
-// ?page=2

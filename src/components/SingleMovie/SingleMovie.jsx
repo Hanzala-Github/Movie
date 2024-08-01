@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import {
   useGetSingleMoviesQuery,
   useGetSingleMovieWithImagesQuery,
@@ -11,9 +12,7 @@ import { FaHeart } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { DownloadPop } from "./DownloadPop";
 import { SingleMovieTrailer } from "./SingleMovieTrailer";
-import { TrailerImg } from "./TrailerImg";
-// import { SummeryCast } from "./SummeryCast";
-import { SummeryCast } from "../index";
+import { Loader, SummeryCast } from "../index";
 
 // .........This is the function component part........//
 export function SingleMovie() {
@@ -21,53 +20,56 @@ export function SingleMovie() {
 
   const { id } = useParams();
   const singleMovieQuery = useGetSingleMoviesQuery(id);
-
   const suggestionQuery = useGetSuggestionsMoviesQuery(id);
 
   const singleMovieWithImages = useGetSingleMovieWithImagesQuery(id);
 
-  console.log(singleMovieWithImages.data?.data?.movie.medium_screenshot_image1);
+  const SingleMovieImageData = singleMovieWithImages.data?.data?.movie;
 
-  // console.log(suggestionQuery.data?.data?.movies[1]?.id);
-  const movieImg = singleMovieQuery.data?.data?.movie.medium_cover_image;
-  const Like = singleMovieQuery.data?.data?.movie.like_count;
-  const Rating = singleMovieQuery.data?.data?.movie.rating;
-  const Imdb = singleMovieQuery.data?.data?.movie.imdb_code;
+  const singleMovieTitle = SingleMovieImageData?.title;
+  const singleMovieYear = SingleMovieImageData?.year;
 
-  const genres = singleMovieQuery.data?.data?.movie;
-  console.log(genres);
+  const SingleMovieData = singleMovieQuery.data?.data?.movie;
+
+  const movieImg = SingleMovieData?.medium_cover_image;
+  const Like = SingleMovieData?.like_count;
+  const Rating = SingleMovieData?.rating;
+  const Imdb = SingleMovieData?.imdb_code;
+
+  const genres = SingleMovieData;
 
   const containerStyle = {
     backgroundImage: `url(${movieImg})`,
   };
 
-  // console.log();
-
-  const currentImdbCode = singleMovieQuery.data?.data?.movie?.imdb_code;
+  const currentImdbCode = SingleMovieData?.imdb_code;
 
   //   ..........This is the JSX return part..........//
   return (
     <Wrapper>
-      <div className="backgroundImage" style={containerStyle}></div>
+      <div className="background-image" style={containerStyle}></div>
       <CardWrapper>
         {DownloadPopup ? (
           <DownloadPop
             setDownloadPopup={setDownloadPopup}
             data={singleMovieQuery?.data}
           />
-        ) : (
-          ""
-        )}
+        ) : null}
         {/* Left */}
         <div className="left">
-          <SingleMovieCard
-            img={movieImg}
-            width="260px"
-            height="380px"
-            like={Like}
-            rating={Rating}
-            imdb={Imdb}
-          />
+          {singleMovieQuery.isLoading ? (
+            <Loader />
+          ) : (
+            <SingleMovieCard
+              img={movieImg}
+              width="260px"
+              height="380px"
+              like={Like}
+              rating={Rating}
+              imdb={Imdb}
+            />
+          )}
+
           <Link to="" style={{ textDecoration: "none" }}>
             <button className="btn1" onClick={() => setDownloadPopup(true)}>
               <span>
@@ -95,9 +97,9 @@ export function SingleMovie() {
         </div>
         {/* Center */}
         <div className="center">
-          <h2>Bad Boys: Ride or Die</h2>
+          <h2>{singleMovieTitle}</h2>
           <p className="p1">
-            2024 <br />
+            {singleMovieYear} <br />
             {genres?.genres.map((g, i) => (
               <span key={i} className="spanGenre">
                 {g} /{" "}
@@ -116,7 +118,6 @@ export function SingleMovie() {
             </span>
           </div>
           <p className="p2">WEB: same quality as BluRay</p>
-
           <div className="MenuIcons">
             <div className="menu1">
               <span>
@@ -149,15 +150,19 @@ export function SingleMovie() {
         <div className="right">
           <p>Similar Movies</p>
           <div className="MovieCrads">
-            {suggestionQuery?.data?.data?.movies?.map((movie, i) => (
-              <SingleMovieCard
-                key={i}
-                img={movie.medium_cover_image}
-                width="110px"
-                height="140px"
-                id={movie.id}
-              />
-            ))}
+            {suggestionQuery.isLoading ? (
+              <Loader />
+            ) : (
+              suggestionQuery?.data?.data?.movies?.map((movie, i) => (
+                <SingleMovieCard
+                  key={i}
+                  img={movie.medium_cover_image}
+                  width="110px"
+                  height="140px"
+                  id={movie.id}
+                />
+              ))
+            )}
           </div>
         </div>
       </CardWrapper>
@@ -171,11 +176,8 @@ export function SingleMovie() {
 const Wrapper = styled.div`
   position: relative;
   height: min-content;
-  /* height: 100vh; */
-  /* background-color: #111; */
-  /* padding-top: 50px; */
 
-  .backgroundImage {
+  .background-image {
     position: absolute;
     background-color: red;
     top: 0%;
@@ -231,7 +233,8 @@ const CardWrapper = styled.div`
     .btn2 {
       background-color: #cfb702;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 5px;
       align-items: center;
       font-size: 25px;
 
@@ -250,7 +253,6 @@ const CardWrapper = styled.div`
     h2 {
       font-size: 40px;
       font-weight: 600;
-      /* text-align: center; */
     }
 
     .p1 {
@@ -352,8 +354,7 @@ const CardWrapper = styled.div`
       gap: 15px;
       display: flex;
       flex-wrap: wrap;
-      /* align-items: center; */
-      justify-content: center;
+      justify-content: flex-end;
     }
   }
 `;

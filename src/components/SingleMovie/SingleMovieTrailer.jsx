@@ -35,25 +35,17 @@ export function SingleMovieTrailer({ id }) {
       <Wrapper>
         {trailer ? (
           <TrailerPopup setTrailer={setTrailer} videoCode={videoCode} />
-        ) : (
-          ""
-        )}
+        ) : null}
 
         {/* Trailer_img */}
 
-        {trailerimg ? (
-          <TrailerImg img={secondImage} setTrailerimg={setTrailerimg} />
-        ) : (
-          ""
-        )}
+        {trailerimg ? <TrailerImg setTrailerimg={setTrailerimg} /> : null}
 
         {/* Trailer_photo */}
 
         {trailerPhoto ? (
-          <TrailerPhoto img={thirdImage} setTrailerPhoto={setTrailerPhoto} />
-        ) : (
-          ""
-        )}
+          <TrailerPhoto setTrailerPhoto={setTrailerPhoto} />
+        ) : null}
 
         <div className="trailer">
           <div className="overlay" onClick={handleTrailerPop}>
@@ -75,8 +67,6 @@ export function SingleMovieTrailer({ id }) {
 // .........This is the styled-component part........//
 const H2 = styled.div`
   color: #6ac045;
-  /* color: #fff; */
-  /* line-height: 10px; */
   text-align: center;
   padding-top: 40px;
   font-size: 40px;

@@ -2,52 +2,50 @@ import React from "react";
 import styled from "styled-components";
 import { useGetSingleMoviesQuery } from "../../redux/features/MovieApi";
 import { useParams } from "react-router-dom";
-import { color } from "framer-motion";
 
 export function SummeryCast() {
   const { id } = useParams();
-  const singleMoviedata = useGetSingleMoviesQuery(id);
+  const { data } = useGetSingleMoviesQuery(id);
 
-  //   console.log(singleMoviedata.data?.data?.movie);
+  const summery = data?.data?.movie?.description_full;
+  const uploadDate = data?.data?.movie?.date_uploaded;
+  const castData = data?.data?.movie?.cast;
 
-  const summery = singleMoviedata.data?.data?.movie?.description_full;
-  const uploadDate = singleMoviedata.data?.data?.movie?.date_uploaded;
-  const castData = singleMoviedata.data?.data?.movie?.cast;
+  let NewDate = new Date(uploadDate);
 
-  const DateObj = {
-    uploadDate,
-  };
+  const finalDate = NewDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+  });
 
-  let NewDate = new Date();
-
-  const finalDate = NewDate.toLocaleDateString(DateObj);
-
-  console.log(NewDate);
-  //   console.log(new Date(DateObj));
-
-  // ...........This is the JSX return part.........//
   return (
     <Wrapper>
       <div className="SummeryCast">
         <div className="summeryUpload">
           <div className="summery">
             <h3 className="firstH3">Summery</h3>
-
             <p>{summery}</p>
           </div>
           <div className="upload">
-            <h3 className="secondtH3">
-              <i>Uploaded by : FREEMAN</i>
-            </h3>
-            <h4>{}</h4>
+            <h4>{finalDate}</h4>
           </div>
         </div>
-
         <div className="casts">
           <h3 className="thirdtH3">Top cast</h3>
           {castData?.map((cast, i) => (
             <div className="cast" key={i}>
-              <img src={cast.url_small_image} alt="" />{" "}
+              <img
+                src={
+                  cast.url_small_image ??
+                  "https://yts.mx/assets/images/actors/thumb/nm3211555.jpg"
+                }
+                alt=""
+              />
               <p>
                 {cast.name}
                 <span style={{ color: "#fff" }}>{cast.character_name}</span>
@@ -66,12 +64,11 @@ const Wrapper = styled.div`
     margin: auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     color: #fff;
     padding-bottom: 30px;
 
     .summeryUpload {
-      /* height: 200px; */
       display: flex;
       flex-direction: column;
       align-items: flex-start;
