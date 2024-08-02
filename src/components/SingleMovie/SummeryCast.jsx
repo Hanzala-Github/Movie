@@ -48,7 +48,9 @@ export function SummeryCast() {
               />
               <p>
                 {cast.name}
-                <span style={{ color: "#fff" }}>{cast.character_name}</span>
+                <span style={{ color: "#fff", marginLeft: "7px" }}>
+                  {cast.character_name}
+                </span>
               </p>
             </div>
           ))}

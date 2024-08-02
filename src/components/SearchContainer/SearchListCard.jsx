@@ -1,20 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-export function SearchListCard() {
+export function SearchListCard(props) {
+  const { img, title, rating, genres, id } = props;
+
   return (
     <Wrapper>
       <Card className="card">
         <div className="card-img">
-          <img
-            src="https://yts.mx/assets/images/movies/the_abandon_2022/medium-cover.jpg"
-            alt=""
-          />
+          <img src={img} alt="" />
         </div>
         <div className="card-text">
           <div className="card-text-part-1">
-            <h4>Classic and this is the tasty biscut very nice this good</h4>
-            <p>⭐4.5</p>
+            <h4>{title}</h4>
+            <p>⭐{rating}</p>
             <p>
               Classic and this is the tasty biscut very nice this goodClassic
               and this is the tasty biscut very nice this goodClassic and this
@@ -26,7 +25,7 @@ export function SearchListCard() {
             </p>
           </div>
           <div className="card-text-part-2">
-            <p>Horer</p>
+            <p>{genres}</p>
           </div>
         </div>
       </Card>
@@ -42,14 +41,17 @@ const Card = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px;
+  border: 4px solid #fff;
 
   .card-img {
     width: 100%;
-    height: 230px;
+    height: 245px;
 
     img {
-      width: 100%;
-      height: 100%;
+      /* width: 100%; */
+      width: 220px;
+      /* height: 100%; */
+      height: 245px;
       object-fit: cover;
       object-position: center;
     }
@@ -89,8 +91,7 @@ const Card = styled.div`
       }
     }
   }
-
-  &:hover {
+  /* &:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+  } */
 `;

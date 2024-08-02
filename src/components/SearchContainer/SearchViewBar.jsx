@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TfiLayoutGrid2Alt, TfiMenuAlt } from "react-icons/tfi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { SORT_BY_FILTERS } from "../../constants/SortByFilters";
+import queryString from "query-string";
 
 export function SearchViewBar(props) {
   const { setShowView } = props;
   const [isGridActive, setIsGridActive] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queries = queryString.parse(location.search);
 
   const handleGridClick = () => {
     setIsGridActive(true);
@@ -15,6 +20,13 @@ export function SearchViewBar(props) {
   const handleListClick = () => {
     setIsGridActive(false);
     setShowView(true);
+  };
+
+  const handleSortSelect = (e) => {
+    const newQueries = { ...queries };
+
+    newQueries.sort_by = e.target.value;
+    navigate(`/search?${queryString.stringify(newQueries)}`);
   };
 
   return (
@@ -28,22 +40,12 @@ export function SearchViewBar(props) {
         <div className="view-dropdown">
           <div className="selection">
             <p>Sort By :</p>
-            <select>
-              <option className="option" value="PAK">
-                Pakistan
-              </option>
-              <option className="option" value="IND">
-                India
-              </option>
-              <option className="option" value="BNG">
-                Bangladesh
-              </option>
-              <option className="option" value="UAE">
-                Dubai
-              </option>
-              <option className="option" value="USA">
-                America
-              </option>
+            <select className="select" onChange={handleSortSelect}>
+              {SORT_BY_FILTERS.map((attribute, i) => (
+                <option className="option" key={i} value={attribute.key}>
+                  {attribute.label}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -71,13 +73,14 @@ export function SearchViewBar(props) {
 }
 
 const Wrapper = styled.div`
+  background-color: #171717;
   .view-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-block: 20px;
     padding-inline: 20px;
-    border-bottom: 1px solid #d6d6d668;
+    border-bottom: 1px solid #222121;
 
     .search-result {
       h3 {
@@ -112,6 +115,14 @@ const Wrapper = styled.div`
             outline: none;
           }
         }
+
+        .select {
+          .option {
+            color: #444;
+            padding-block: 20px;
+            border-bottom: 2px solid red;
+          }
+        }
       }
       .view {
         display: flex;
@@ -134,7 +145,7 @@ const Wrapper = styled.div`
         .active {
           font-size: 18px;
           margin-top: 5px;
-          color: #000;
+          color: #6ac045;
         }
       }
     }

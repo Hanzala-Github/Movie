@@ -2,8 +2,26 @@ import React from "react";
 import styled from "styled-components";
 
 import { FaStar } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router-dom";
+import queryString from "query-string";
 
 export function SearchSideBar() {
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  const queryies = queryString.parse(location.search);
+
+  const handleRating = (rating) => {
+    const newQuery = { ...queryies };
+
+    newQuery.minimum_rating = `${rating}`;
+
+    navigate(`/search?${queryString.stringify(newQuery)}`);
+  };
+
+  // .............This is the JSX return part............//
+
   return (
     <Wrapper>
       <div className="sidebar">
@@ -12,14 +30,15 @@ export function SearchSideBar() {
         <div className="rating">
           <h3>Rating</h3>
           <div className="ratingStars">
-            <div className="stars-1">
+            <h3>Rating on 1 - 5</h3>
+            <div className="stars-1" onClick={() => handleRating(5)}>
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
             </div>
-            <div className="stars-2">
+            <div className="stars-2" onClick={() => handleRating(4)}>
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
@@ -27,7 +46,7 @@ export function SearchSideBar() {
               <FaStar className="star-icon empty" />
               <span>and Up</span>
             </div>
-            <div className="stars-3">
+            <div className="stars-3" onClick={() => handleRating(3)}>
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
@@ -35,7 +54,7 @@ export function SearchSideBar() {
               <FaStar className="star-icon empty" />
               <span>and Up</span>
             </div>
-            <div className="stars-4">
+            <div className="stars-4" onClick={() => handleRating(2)}>
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon empty" />
@@ -43,12 +62,52 @@ export function SearchSideBar() {
               <FaStar className="star-icon empty" />
               <span>and Up</span>
             </div>
-            <div className="stars-5">
+            <div className="stars-5" onClick={() => handleRating(1)}>
               <FaStar className="star-icon fill" />
               <FaStar className="star-icon empty" />
               <FaStar className="star-icon empty" />
               <FaStar className="star-icon empty" />
               <FaStar className="star-icon empty" />
+              <span>and Up</span>
+            </div>
+            <h3>Rating on 6 - 10</h3>{" "}
+            <div className="stars-1" onClick={() => handleRating(10)}>
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+            </div>
+            <div className="stars-2" onClick={() => handleRating(9)}>
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <span>and Up</span>
+            </div>
+            <div className="stars-3" onClick={() => handleRating(8)}>
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <span>and Up</span>
+            </div>
+            <div className="stars-4" onClick={() => handleRating(7)}>
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon fill" />
+              <FaStar className="star-icon fill" />
+              <span>and Up</span>
+            </div>
+            <div className="stars-5" onClick={() => handleRating(6)}>
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon empty" />
+              <FaStar className="star-icon fill" />
               <span>and Up</span>
             </div>
           </div>
@@ -76,14 +135,17 @@ const Wrapper = styled.div`
       flex-direction: column;
 
       h3 {
-        margin-block: 20px;
+        margin-top: 30px;
+        margin-bottom: 10px;
         font-weight: 500;
+        font-size: 15px;
       }
       .ratingStars {
+        width: 230px;
         display: flex;
         flex-direction: column;
         gap: 3px;
-        border-top: 1px solid #99999939;
+        border-top: 1px solid #222121;
         padding-block: 10px;
 
         .stars-1,
@@ -94,7 +156,7 @@ const Wrapper = styled.div`
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 7px;
+          gap: 15px;
           padding-block: 2px;
           padding-left: 2px;
           border-radius: 5px;
@@ -106,10 +168,11 @@ const Wrapper = styled.div`
 
           span {
             color: #888;
+            font-size: 13px;
           }
 
           .star-icon {
-            font-size: 30px;
+            font-size: 20px;
           }
 
           .fill {

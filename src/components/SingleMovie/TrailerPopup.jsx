@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   left: 0%;
   cursor: pointer;
   z-index: 20;
+  border: none;
   .TrailerPopup {
     position: relative;
     width: 700px;

@@ -40,16 +40,17 @@ export function SearchContainer() {
 // ........This is the styled-component part.........//
 const Wrapper = styled.div`
   height: min-content;
-  background-color: #fff;
+  background-color: #171717;
+  color: #999;
 `;
 
 const SearchContentWrapper = styled.div`
   max-width: 1200px;
-  background-color: #fff;
+  background-color: #171717;
   margin: auto;
 
   .home-search {
-    border-bottom: 1px solid #99999939;
+    border-bottom: 1px solid #222121;
     padding-block: 15px;
     padding-left: 5px;
 
@@ -64,11 +65,17 @@ const SearchContentWrapper = styled.div`
   .container {
     display: flex;
     gap: 15px;
-    background-color: #fff;
+    background-color: #171717;
 
     .side-bar {
       flex: 1;
-      box-shadow: 1px 0px 20px #99999939;
+      border: 1px solid #222121;
+      background-color: #222;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      border-radius: 10px;
+      padding: 5px;
+      /* box-shadow: 1px 0px 20px #99999939; */
     }
 
     .middle-content {

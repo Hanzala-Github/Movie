@@ -61,6 +61,7 @@ export function SingleMovie() {
             <Loader />
           ) : (
             <SingleMovieCard
+              id={id}
               img={movieImg}
               width="260px"
               height="380px"
@@ -343,7 +344,7 @@ const CardWrapper = styled.div`
 
     p {
       margin-bottom: 10px;
-      margin-left: 50px;
+      margin-left: 80px;
       font-size: 18px;
       font-weight: 550;
       letter-spacing: -0.8px;

@@ -19,27 +19,17 @@ export function MovieCard(props) {
 
     if (isHalfStar) {
       stars.pop();
-      stars.push(<FaStarHalfAlt className="rating" />);
+      stars.push(
+        <FaStarHalfAlt className="rating" key={Math.random * 10000000} />
+      );
     }
-
     return stars;
   };
 
   // ...........This is the JSX return part........//
   return (
-    <Link
-      style={{ textDecoration: "none" }}
-      to={`/${id}`}
-      onClick={() => {
-        console.log(":clickchnwaidoiawhdoawdho");
-      }}
-    >
-      <Card
-        className="maincard"
-        onClick={() => {
-          console.log("main card event");
-        }}
-      >
+    <Link style={{ textDecoration: "none" }} to={`/${id}`}>
+      <Card className="maincard">
         <div className="cardImg">
           <img src={img} alt={title} />
         </div>

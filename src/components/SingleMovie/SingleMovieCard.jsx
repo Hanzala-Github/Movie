@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export function SingleMovieCard(props) {
+  // const { id } = useParams();
   const { img, width, height, id } = props;
 
   return (
@@ -30,7 +31,6 @@ const Card = styled.div`
       transition: all 1.5s;
     }
   }
-
   img {
     overflow: hidden;
     width: 100%;

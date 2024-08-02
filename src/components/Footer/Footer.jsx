@@ -49,7 +49,6 @@ const Wrapper = styled.div`
     margin-top: 30px;
     padding-block: 30px;
     border-top: 1px solid #27272799;
-    /* color: #fff; */
 
     .top {
       span {

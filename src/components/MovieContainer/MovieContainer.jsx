@@ -80,12 +80,13 @@ const WrapperContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  /* background-color: #777; */
 `;
 
 const Wrapper = styled.div`
-  /* background-color: #444; */
   min-height: 100vh;
   position: relative;
+  /* background-color: #fff; */
 
   .pagination {
     position: fixed;
