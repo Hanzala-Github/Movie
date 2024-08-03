@@ -1,80 +1,111 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import {
   useGetSingleMoviesQuery,
+  useGetSingleMovieWithImagesQuery,
   useGetSuggestionsMoviesQuery,
 } from "../../redux/features/MovieApi";
 import { SingleMovieCard } from "./SingleMovieCard";
 import { FaHeart } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { DownloadPop } from "./DownloadPop";
+import { SingleMovieTrailer } from "./SingleMovieTrailer";
+import { Loader, SummeryCast } from "../index";
 
+// .........This is the function component part........//
 export function SingleMovie() {
   const [DownloadPopup, setDownloadPopup] = useState(false);
 
   const { id } = useParams();
   const singleMovieQuery = useGetSingleMoviesQuery(id);
-
   const suggestionQuery = useGetSuggestionsMoviesQuery(id);
+  const singleMovieSummeryCast = singleMovieQuery?.data?.data?.movie;
+  const singleMovieWithImages = useGetSingleMovieWithImagesQuery(id);
 
-  // console.log(singleMovieQuery.data?.data?.movie.torrents);
+  const SingleMovieImageData = singleMovieWithImages.data?.data?.movie;
 
-  // console.log(suggestionQuery.data?.data?.movies[1]?.id);
-  const movieImg = singleMovieQuery.data?.data?.movie.medium_cover_image;
-  const Like = singleMovieQuery.data?.data?.movie.like_count;
-  const Rating = singleMovieQuery.data?.data?.movie.rating;
-  const Imdb = singleMovieQuery.data?.data?.movie.imdb_code;
+  const singleMovieTitle = SingleMovieImageData?.title;
+  const singleMovieYear = SingleMovieImageData?.year;
+
+  const SingleMovieData = singleMovieQuery.data?.data?.movie;
+
+  const movieImg = SingleMovieData?.medium_cover_image;
+  const Like = SingleMovieData?.like_count;
+  const Rating = SingleMovieData?.rating;
+  const Imdb = SingleMovieData?.imdb_code;
+
+  const genres = SingleMovieData;
+
+  const containerStyle = {
+    backgroundImage: `url(${movieImg})`,
+  };
+
+  const currentImdbCode = SingleMovieData?.imdb_code;
 
   //   ..........This is the JSX return part..........//
   return (
     <Wrapper>
+      <div className="background-image" style={containerStyle}></div>
       <CardWrapper>
         {DownloadPopup ? (
           <DownloadPop
             setDownloadPopup={setDownloadPopup}
             data={singleMovieQuery?.data}
           />
-        ) : (
-          ""
-        )}
-        {/* Real */}
-        {/* {DownloadPopup ? (
-          <DownloadPop
-            DownloadPopup={DownloadPopup}
-            setDownloadPopup={setDownloadPopup}
-          />
-        ) : (
-          ""
-        )} */}
+        ) : null}
         {/* Left */}
         <div className="left">
-          <SingleMovieCard
-            img={movieImg}
-            width="260px"
-            height="380px"
-            like={Like}
-            rating={Rating}
-            imdb={Imdb}
-          />
+          {singleMovieQuery.isLoading ? (
+            <Loader />
+          ) : (
+            <SingleMovieCard
+              id={id}
+              img={movieImg}
+              width="260px"
+              height="380px"
+              like={Like}
+              rating={Rating}
+              imdb={Imdb}
+            />
+          )}
+
           <Link to="" style={{ textDecoration: "none" }}>
             <button className="btn1" onClick={() => setDownloadPopup(true)}>
               <span>
-                <FiDownload />
+                <FiDownload style={{ fontSize: "20px", color: "#e7e7e7" }} />
               </span>
               Download
             </button>
           </Link>
-          <Link to="" style={{ textDecoration: "none" }}>
-            <button className="btn2">Watch Now</button>
+          <Link
+            to={`https://www.imdb.com/title/${currentImdbCode}/?ref_=hm_stp_pvs_piv_tt_i_2`}
+            target="_"
+            style={{ textDecoration: "none" }}
+          >
+            <button className="btn2">
+              <span>
+                {" "}
+                <img
+                  src="https://yts.mx/assets/images/website/logo-imdb.svg"
+                  alt=""
+                />
+              </span>
+              IMBD
+            </button>
           </Link>
         </div>
         {/* Center */}
         <div className="center">
-          <h2>Bad Boys: Ride or Die</h2>
+          <h2>{singleMovieTitle}</h2>
           <p className="p1">
-            2024 <br />
-            Action / Adventure / Comedy / Crime / Thriller
+            {singleMovieYear} <br />
+            {genres?.genres.map((g, i) => (
+              <span key={i} className="spanGenre">
+                {g} /{" "}
+              </span>
+            ))}
           </p>
           <div className="MovieQualites">
             <span className="span1">Avalible in : </span>
@@ -88,7 +119,6 @@ export function SingleMovie() {
             </span>
           </div>
           <p className="p2">WEB: same quality as BluRay</p>
-
           <div className="MenuIcons">
             <div className="menu1">
               <span>
@@ -121,38 +151,61 @@ export function SingleMovie() {
         <div className="right">
           <p>Similar Movies</p>
           <div className="MovieCrads">
-            {suggestionQuery?.data?.data?.movies?.map((movie, i) => (
-              <SingleMovieCard
-                key={i}
-                img={movie.medium_cover_image}
-                width="110px"
-                height="140px"
-                id={movie.id}
-              />
-            ))}
+            {suggestionQuery.isLoading ? (
+              <Loader />
+            ) : (
+              suggestionQuery?.data?.data?.movies?.map((movie, i) => (
+                <SingleMovieCard
+                  key={i}
+                  img={movie.medium_cover_image}
+                  width="110px"
+                  height="140px"
+                  id={movie.id}
+                />
+              ))
+            )}
           </div>
         </div>
       </CardWrapper>
+      {/* This is the single Movie Trailer and summery ans top casts */}
+      <SingleMovieTrailer id={id} />
+      <SummeryCast
+        summery={singleMovieSummeryCast?.description_full}
+        uploadDate={singleMovieSummeryCast?.date_uploaded}
+        castData={singleMovieSummeryCast?.cast}
+      />
     </Wrapper>
   );
 }
 
 // ...............This is the styled-component part..........//
 const Wrapper = styled.div`
+  position: relative;
   height: min-content;
-  background-color: #111;
-  padding-top: 50px;
+
+  .background-image {
+    position: absolute;
+    background-color: red;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: calc(100vh - 59px);
+    z-index: -1;
+    background-color: #111;
+    opacity: 0.1;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 `;
 const CardWrapper = styled.div`
-  /* width: 100vw; */
   max-width: 1200px;
   margin-inline: auto;
-  min-height: 100vh;
   color: #fff;
   display: flex;
   justify-content: space-between;
-  padding-top: 50px;
   gap: 15px;
+  padding-top: 50px;
 
   .left {
     display: flex;
@@ -168,6 +221,8 @@ const CardWrapper = styled.div`
       border-radius: 3px;
       background-color: #6ac045;
       color: #fff;
+      font-weight: 600;
+      font-size: 17px;
       cursor: pointer;
     }
 
@@ -182,7 +237,16 @@ const CardWrapper = styled.div`
       }
     }
     .btn2 {
-      background-color: #0aad9e;
+      background-color: #cfb702;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      align-items: center;
+      font-size: 25px;
+
+      img {
+        width: 60px;
+      }
     }
   }
 
@@ -195,13 +259,17 @@ const CardWrapper = styled.div`
     h2 {
       font-size: 40px;
       font-weight: 600;
-      /* text-align: center; */
     }
 
     .p1 {
       font-weight: 500;
       letter-spacing: -1px;
       font-size: 20px;
+      .spanGenre {
+        font-weight: 500;
+        letter-spacing: -1px;
+        font-size: 20px;
+      }
     }
     .p2 {
       font-size: 15px;
@@ -281,7 +349,7 @@ const CardWrapper = styled.div`
 
     p {
       margin-bottom: 10px;
-      margin-left: 50px;
+      margin-left: 80px;
       font-size: 18px;
       font-weight: 550;
       letter-spacing: -0.8px;
@@ -292,8 +360,7 @@ const CardWrapper = styled.div`
       gap: 15px;
       display: flex;
       flex-wrap: wrap;
-      /* align-items: center; */
-      justify-content: center;
+      justify-content: flex-end;
     }
   }
 `;

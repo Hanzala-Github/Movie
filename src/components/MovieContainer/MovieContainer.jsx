@@ -2,18 +2,17 @@ import queryString from "query-string";
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import {
-  // useGetMoviesPaginationQuery,
-  useGetMoviesQuery,
-} from "../../redux/features/MovieApi";
+
+import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
 import { MovieCard } from "../MovieCard/MovieCard";
 export function MovieContainer() {
   const location = useLocation();
 
   console.log({ location });
-  const { data, isLoading, isSuccess, isError, error, refetch } =
-    useGetMoviesQuery(location.search);
+  const { data, isLoading, isSuccess, isError, error } = useGetMoviesQuery(
+    location.search
+  );
   const nav = useNavigate();
 
   const qs = queryString.parse(location.search);
@@ -30,7 +29,7 @@ export function MovieContainer() {
     nav(`${location.pathname}?${queryString.stringify(newQs)}`);
   };
   const handleRightSidePagination = () => {
-    const newPage = Number(qs.page || 0);
+    const newPage = Number(qs.page || 1);
     nav(`${location.pathname}?page=${newPage + 1}`);
   };
 
@@ -49,7 +48,7 @@ export function MovieContainer() {
         <div className="heading">
           <h1>Download YTS YIFY movies: HD smallest size</h1>
           <div className="downloads">
-            <span style={{ color: "#0d941f" }}>
+            <span style={{ color: "#6AC045" }}>
               <FaStar />
             </span>
             <h3>Popular Downloads</h3>
@@ -81,12 +80,13 @@ const WrapperContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  /* background-color: #777; */
 `;
 
 const Wrapper = styled.div`
-  background-color: #444;
   min-height: 100vh;
   position: relative;
+  /* background-color: #fff; */
 
   .pagination {
     position: fixed;
@@ -154,7 +154,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
 `;

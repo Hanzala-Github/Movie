@@ -9,9 +9,13 @@
 
 body {
   overflow-x: hidden;
-  background-color: #000;
+  background-color: #111;
 }
 
-/* body::-webkit-scrollbar {
-  display: none;
-} */
+::selection {
+  background-color: #000;
+  color: #6ac045;
+}
+a {
+  text-decoration: none;
+}

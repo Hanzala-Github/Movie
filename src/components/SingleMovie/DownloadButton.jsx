@@ -41,7 +41,6 @@ const Button = styled.div`
   height: 260px;
   padding-inline: 10px;
   border-right: 1px solid #b3b3b3;
-  /* height: 400px; */
 
   p {
     font-weight: 600;
@@ -75,7 +74,4 @@ const Button = styled.div`
     height: 60px;
     border: 3px solid #c7c6c6;
   }
-  /* } */
 `;
-
-// 28922
