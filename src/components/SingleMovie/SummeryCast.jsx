@@ -1,15 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useGetSingleMoviesQuery } from "../../redux/features/MovieApi";
-import { useParams } from "react-router-dom";
 
-export function SummeryCast() {
-  const { id } = useParams();
-  const { data } = useGetSingleMoviesQuery(id);
-
-  const summery = data?.data?.movie?.description_full;
-  const uploadDate = data?.data?.movie?.date_uploaded;
-  const castData = data?.data?.movie?.cast;
+export function SummeryCast(props) {
+  const { summery, uploadDate, castData } = props;
 
   let NewDate = new Date(uploadDate);
 

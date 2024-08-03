@@ -1,10 +1,18 @@
 import React from "react";
-import { Box, Flex, HStack, Img, Input, InputGroup } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Img,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from "@chakra-ui/react";
+
 import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import queryString from "query-string";
-// import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 
 // ...........this is the function component return part...........//
 
@@ -24,16 +32,6 @@ export function Header() {
       navigate(`/search?${queryString.stringify(newQuery)}`);
     }
   };
-  // .........Search movies getting part.......//
-  // const { data, isLoading, isSuccess } = useGetMoviesQuery(queries.search);
-
-  document.addEventListener("keydown", (event) => {
-    if (event.ctrlKey && event.key === "k") {
-      event.preventDefault();
-
-      document.querySelector(".NavInput").focus();
-    }
-  });
 
   // ............This is the JSX return part............//
   return (
@@ -82,37 +80,36 @@ export function Header() {
             >
               Browse Movies
             </Link>
-            <InputGroup
-              maxW="200px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              position="relative"
-            >
-              <div className="inputWrapper">
-                <Input
-                  onKeyDown={handleEnterSearch}
-                  defaultValue={queries.query_term || ""}
-                  className="NavInput"
-                  type="text"
-                  placeholder="Search"
-                  borderRadius="50px"
-                  border="none"
-                  color="#555"
-                  fontWeight="500"
-                  fontSize="16px"
-                  paddingLeft="5px"
-                  // width="170px"
-                  // height="45px"
-                  width="100%"
-                  height="45px"
-                  overflow="hidden"
-                  _focus={{ outline: "none" }}
+            <InputGroup maxW="200px" position="relative" overflow="hidden">
+              <Input
+                onKeyDown={handleEnterSearch}
+                defaultValue={queries.query_term || ""}
+                placeholder="Enter amount"
+                paddingBlock="15px"
+                width="200px"
+                borderRadius="50px"
+                border="none"
+                _focus={{ outline: "none" }}
+                paddingLeft="10px"
+                fontSize="14px"
+              />
+              <InputRightElement
+                position="absolute"
+                top="23%"
+                right="0px"
+                background="#fff"
+                borderRadius="50%"
+              >
+                <FaSearch
+                  color="green.500"
+                  style={{
+                    color: "#333",
+                    fontSize: "23px",
+                    marginRight: "5px",
+                    background: "#fff",
+                  }}
                 />
-                <div className="search-Icon">
-                  <FaSearch className="search" color="gray.300" style={{}} />
-                </div>
-              </div>
+              </InputRightElement>
             </InputGroup>
           </HStack>
         </Flex>
@@ -132,28 +129,5 @@ const Wrapper = styled.div`
     font-size: 12px;
     color: #918e8e;
     margin-right: 1rem;
-  }
-
-  .inputWrapper {
-    position: relative;
-    overflow: hidden;
-    .search-Icon {
-      background-color: #fff;
-      border-radius: 50px;
-      height: 30px;
-      width: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      cursor: pointer;
-      right: 0%;
-      top: 0%;
-      transform: translate(-0%, 25%);
-      .search {
-        font-size: 20px;
-        color: #6ac045;
-      }
-    }
   }
 `;

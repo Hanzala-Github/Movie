@@ -21,7 +21,7 @@ export function SingleMovie() {
   const { id } = useParams();
   const singleMovieQuery = useGetSingleMoviesQuery(id);
   const suggestionQuery = useGetSuggestionsMoviesQuery(id);
-
+  const singleMovieSummeryCast = singleMovieQuery?.data?.data?.movie;
   const singleMovieWithImages = useGetSingleMovieWithImagesQuery(id);
 
   const SingleMovieImageData = singleMovieWithImages.data?.data?.movie;
@@ -167,8 +167,13 @@ export function SingleMovie() {
           </div>
         </div>
       </CardWrapper>
+      {/* This is the single Movie Trailer and summery ans top casts */}
       <SingleMovieTrailer id={id} />
-      <SummeryCast />
+      <SummeryCast
+        summery={singleMovieSummeryCast?.description_full}
+        uploadDate={singleMovieSummeryCast?.date_uploaded}
+        castData={singleMovieSummeryCast?.cast}
+      />
     </Wrapper>
   );
 }

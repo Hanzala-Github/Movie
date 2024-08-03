@@ -75,7 +75,6 @@ const SearchContentWrapper = styled.div`
         rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
       border-radius: 10px;
       padding: 5px;
-      /* box-shadow: 1px 0px 20px #99999939; */
     }
 
     .middle-content {

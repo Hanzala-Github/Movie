@@ -4,31 +4,28 @@ import { useGetSingleMovieWithImagesQuery } from "../../redux/features/MovieApi"
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { TrailerPopup } from "./TrailerPopup";
 import { TrailerImg } from "./TrailerImg";
-import { TrailerPhoto } from "./TrailerPhoto";
 
 export function SingleMovieTrailer({ id }) {
   const [trailer, setTrailer] = useState(false);
-  const [trailerimg, setTrailerimg] = useState(false);
-  const [trailerPhoto, setTrailerPhoto] = useState(false);
+  const [selectedImgIndex, setSelectedImageIndex] = useState(null);
+  // const [trailerPhoto, setTrailerPhoto] = useState(false);
 
   const singleMovieWithImage = useGetSingleMovieWithImagesQuery(id);
 
   const SingleMoviewithImgData = singleMovieWithImage.data?.data?.movie;
 
-  console.log();
-
   const firstImage = SingleMoviewithImgData?.medium_screenshot_image1 ?? "";
-  const secondImage = SingleMoviewithImgData?.medium_screenshot_image2 ?? "";
-  const thirdImage = SingleMoviewithImgData?.medium_screenshot_image3 ?? "";
   const videoCode = SingleMoviewithImgData?.yt_trailer_code ?? "";
-
-  console.log(videoCode);
 
   const handleTrailerPop = () => {
     setTrailer(true);
   };
 
-  //   .............This is the JSX return part.........//
+  const image1 = SingleMoviewithImgData?.large_screenshot_image2;
+  const image2 = SingleMoviewithImgData?.large_screenshot_image3;
+
+  const images = [image1, image2];
+
   return (
     <>
       <H2 className="trailerH2">Trailer</H2>
@@ -36,29 +33,43 @@ export function SingleMovieTrailer({ id }) {
         {trailer ? (
           <TrailerPopup setTrailer={setTrailer} videoCode={videoCode} />
         ) : null}
-
         {/* Trailer_img */}
-
-        {trailerimg ? <TrailerImg setTrailerimg={setTrailerimg} /> : null}
-
-        {/* Trailer_photo */}
-
-        {trailerPhoto ? (
-          <TrailerPhoto setTrailerPhoto={setTrailerPhoto} />
-        ) : null}
+        {images[selectedImgIndex] && (
+          <TrailerImg
+            src={images[selectedImgIndex]}
+            // onNPClick={() => {
+            //   if (selectedImgIndex === 0) {
+            //     setSelectedImageIndex(
+            //       Math.min(selectedImgIndex + 1, images.length - 1)
+            //     );
+            //   } else if (selectedImgIndex === 1) {
+            //     setSelectedImageIndex(Math.max(selectedImgIndex - 1, 0));
+            //   }
+            // }}
+            onNextClick={() => {
+              setSelectedImageIndex(
+                Math.min(selectedImgIndex + 1, images.length - 1)
+              );
+            }}
+            onPrevClick={() => {
+              setSelectedImageIndex(Math.max(selectedImgIndex - 1, 0));
+            }}
+            onClose={() => setSelectedImageIndex(null)}
+          />
+        )}
 
         <div className="trailer">
           <div className="overlay" onClick={handleTrailerPop}>
             <IoPlayCircleOutline style={{ color: "#fff", fontSize: "100px" }} />
           </div>
-          <img src={firstImage} alt="" />
+          <img src={firstImage} />
         </div>
-        <div className="trailer" onClick={() => setTrailerimg(true)}>
-          <img src={secondImage} alt="" />
-        </div>
-        <div className="trailer">
-          <img src={thirdImage} alt="" onClick={() => setTrailerPhoto(true)} />
-        </div>
+
+        {images.map((img, i) => (
+          <div key={i} className="trailer" tabIndex={-1}>
+            <img src={img} onClick={() => setSelectedImageIndex(i)} />
+          </div>
+        ))}
       </Wrapper>
     </>
   );
