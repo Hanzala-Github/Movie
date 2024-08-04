@@ -42,7 +42,12 @@ export function SearchViewBar(props) {
             <p>Sort By :</p>
             <select className="select" onChange={handleSortSelect}>
               {SORT_BY_FILTERS.map((attribute, i) => (
-                <option className="option" key={i} value={attribute.key}>
+                <option
+                  className="option"
+                  key={i}
+                  value={attribute.key}
+                  style={{ borderRadius: "50%" }}
+                >
                   {attribute.label}
                 </option>
               ))}

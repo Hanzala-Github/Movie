@@ -4,32 +4,31 @@ import { SearchCard } from "./SearchCard";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
-import queryString from "query-string";
 
 export function ViewGrid() {
-  // const { data, isLoading, isSuccess } = useGetMoviesQuery();
-
   const location = useLocation();
-  const queryies = queryString.parse(location.search);
 
   const { data, isLoading, isSuccess } = useGetMoviesQuery(location.search);
-  // .............This is the JSX return part.........//
+
   return (
     <Wrapper>
       <div className="Middle-content">
         {isLoading ? (
           <Loader />
-        ) : (
-          data?.data?.movies?.map((dets, i) => (
+        ) : data?.data?.movies?.length ? (
+          data.data.movies.map((dets, i) => (
             <SearchCard
               key={i}
               img={dets.medium_cover_image}
               title={dets.title}
               rating={dets.rating}
-              genres={dets.genres[0]}
+              genres={dets.genres?.[0] || "N/A"}
+              genres2={dets.genres?.[1] || "N/A"}
               id={dets.id}
             />
           ))
+        ) : (
+          <div>No movies to display</div>
         )}
       </div>
     </Wrapper>

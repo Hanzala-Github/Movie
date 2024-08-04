@@ -5,7 +5,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import styled from "styled-components";
 
 export function SearchCard(props) {
-  const { img, title, rating, genres, id } = props;
+  const { img, title, rating, genres, id, genres2 } = props;
 
   const handlerating = (cardRating) => {
     const stars = [];
@@ -32,7 +32,32 @@ export function SearchCard(props) {
     <Wrapper>
       <Link to={`/${id}`}>
         <div className="card-wrapper">
-          <div className="overlay"></div>
+          <div className="overlay">
+            <span className="icons">
+              <FaStar
+                className="icon"
+                style={{ color: "#6AC045", fontSize: "28px" }}
+              />
+            </span>
+            <span
+              className="Rating"
+              style={{ fontSize: "26px", fontWeight: "600", color: "#fff" }}
+            >
+              {rating}
+            </span>
+            <span
+              style={{
+                fontSize: "23px",
+                fontWeight: "600",
+                textAlign: "center",
+                color: "#fff",
+              }}
+            >
+              {genres} <br />
+              {/* {genres2} */}
+            </span>
+            <button className="btn1">View Detail</button>
+          </div>
           <Card className="card">
             <div className="card-img">
               <img src={img} alt="" />
@@ -42,7 +67,7 @@ export function SearchCard(props) {
               <p>
                 <FaStar className="rating" /> {handlerating(rating)}
               </p>
-              <p>{genres}</p>
+              <p style={{ color: "#6AC045" }}>{genres}</p>
             </div>
           </Card>
         </div>
@@ -55,19 +80,62 @@ const Wrapper = styled.div`
   height: min-content;
   .card-wrapper {
     position: relative;
-    /* background-color: green; */
 
     .overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
       position: absolute;
       width: 212px;
       height: 330px;
       max-height: 340px;
-      /* opacity: 0.3; */
       top: 0%;
       left: 0%;
-      background-color: #00000068;
+      background-color: #000000c7;
+      border: 4px solid #6ac045;
       /* background-color: #999; */
       z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+      overflow: hidden;
+      .btn1 {
+        color: #fff;
+        background: #6ac045;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 400;
+
+        /* transform: translateY(60%);
+        opacity: 0.5; */
+      }
+
+      /* &:hover .btn1 {
+        transform: translateY(0%);
+        opacity: 1;
+      } */
+    }
+  }
+
+  &:hover .overlay {
+    visibility: visible;
+    opacity: 1;
+    .btn1 {
+      animation: fade_in 500ms ease-in-out;
+    }
+  }
+  @keyframes fade_in {
+    0% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
     }
   }
 `;

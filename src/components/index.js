@@ -9,7 +9,6 @@ export * from "./SingleMovie/DownloadButton";
 export * from "./SingleMovie/SingleMovieTrailer";
 export * from "./SingleMovie/TrailerPopup";
 export * from "./SingleMovie/TrailerImg";
-export * from "./SingleMovie/TrailerPhoto";
 export * from "./SingleMovie/SummeryCast";
 export * from "./SearchContainer/SearchContainer";
 export * from "./SearchContainer/SearchSideBar";

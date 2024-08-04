@@ -8,7 +8,6 @@ import { TrailerImg } from "./TrailerImg";
 export function SingleMovieTrailer({ id }) {
   const [trailer, setTrailer] = useState(false);
   const [selectedImgIndex, setSelectedImageIndex] = useState(null);
-  // const [trailerPhoto, setTrailerPhoto] = useState(false);
 
   const singleMovieWithImage = useGetSingleMovieWithImagesQuery(id);
 

@@ -30,6 +30,7 @@ const Wrapper = styled.div`
   left: 0%;
   cursor: pointer;
   z-index: 20;
+  user-select: none;
   .TrailerImg {
     position: relative;
     width: 900px;

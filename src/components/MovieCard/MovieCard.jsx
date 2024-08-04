@@ -4,7 +4,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 export function MovieCard(props) {
-  const { img, title, year, rating, id } = props;
+  const { img, title, year, rating, id, genres, genres2 } = props;
 
   const SingleCardRating = (starRating) => {
     const stars = [];
@@ -28,27 +28,109 @@ export function MovieCard(props) {
 
   // ...........This is the JSX return part........//
   return (
-    <Link style={{ textDecoration: "none" }} to={`/${id}`}>
-      <Card className="maincard">
-        <div className="cardImg">
-          <img src={img} alt={title} />
+    <Wrapper>
+      <Link style={{ textDecoration: "none" }} to={`/${id}`}>
+        <div className="overlay">
+          <span className="icons">
+            <FaStar
+              className="icon"
+              style={{ color: "#6AC045", fontSize: "28px" }}
+            />
+          </span>
+          <span
+            className="Rating"
+            style={{ fontSize: "26px", fontWeight: "600", color: "#fff" }}
+          >
+            {rating}
+          </span>
+          <span
+            style={{
+              fontSize: "23px",
+              fontWeight: "600",
+              textAlign: "center",
+              color: "#fff",
+            }}
+          >
+            {genres} <br />
+            {genres2}
+          </span>
+          <button className="btn1">View Detail</button>
         </div>
-        <div className="cardText">
-          <h3>{title}</h3>
-          <p>{year}</p>
-          <p>{SingleCardRating(rating)}</p>
-        </div>
-      </Card>
-    </Link>
+        <Card className="maincard">
+          <div className="cardImg">
+            <img src={img} alt={title} />
+          </div>
+          <div className="cardText">
+            <h3>{title}</h3>
+            <p>{year}</p>
+            <p>{SingleCardRating(rating)}</p>
+          </div>
+        </Card>
+      </Link>
+    </Wrapper>
   );
 }
 
+const Wrapper = styled.div`
+  position: relative;
+  .overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    max-height: 340px;
+    top: 0%;
+    left: 0%;
+    background-color: #000000c7;
+    border-top: 4px solid #6ac045;
+    border-left: 4px solid #6ac045;
+    border-right: 4px solid #6ac045;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+    overflow: hidden;
+    .btn1 {
+      color: #fff;
+      background: #6ac045;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+
+  &:hover .overlay {
+    visibility: visible;
+    opacity: 1;
+    .btn1 {
+      animation: fade_in 500ms ease-in-out;
+    }
+  }
+  @keyframes fade_in {
+    0% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+`;
+
 const Card = styled.div`
   position: relative;
-  width: 210px;
+  width: 230px;
   overflow: hidden;
   color: #fff;
   cursor: pointer;
+  border: 4px solid #fff;
 
   .cardImg {
     height: 80%;
@@ -65,12 +147,20 @@ const Card = styled.div`
   }
 
   .cardText {
+    padding-inline: 5px;
     p {
       margin-block: 5px;
+      color: #999;
     }
     h3 {
-      font-size: 1rem;
-      font-weight: 500;
+      padding-top: 5px;
+      font-size: 15px;
+      font-weight: 400;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .rating {
       color: yellow;

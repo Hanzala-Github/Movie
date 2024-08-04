@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { SearchSideBar } from "./SearchSideBar";
 
 import { SearchViewBar, ViewFlex, ViewGrid } from "../index";
+import { Pagination } from "../Pagination/Pagination";
 
 export function SearchContainer() {
   // .......This is the functions and variables part.......//
@@ -14,11 +15,11 @@ export function SearchContainer() {
       <SearchContentWrapper>
         <div className="home-search">
           <Link to="/">
-            <span className="span-1">Home</span> /
+            <span className="span-1">Home /</span>
           </Link>
           <Link to="/">
             {" "}
-            <span className="span-2">Search Result</span>
+            <span className="span-2"> Search Result</span>
           </Link>
         </div>
         {/* Main__Container */}
@@ -32,6 +33,7 @@ export function SearchContainer() {
             {showView ? <ViewFlex /> : <ViewGrid />}
           </div>
         </div>
+        <Pagination totalPages={3105} />
       </SearchContentWrapper>
     </Wrapper>
   );
@@ -40,13 +42,13 @@ export function SearchContainer() {
 // ........This is the styled-component part.........//
 const Wrapper = styled.div`
   height: min-content;
-  background-color: #171717;
+  background-color: #111111;
   color: #999;
 `;
 
 const SearchContentWrapper = styled.div`
   max-width: 1200px;
-  background-color: #171717;
+  background-color: #111111;
   margin: auto;
 
   .home-search {
@@ -55,7 +57,7 @@ const SearchContentWrapper = styled.div`
     padding-left: 5px;
 
     .span-1 {
-      color: #555;
+      color: #999;
     }
     .span-2 {
       color: #6ac045;

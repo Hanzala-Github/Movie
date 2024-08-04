@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { SearchListCard } from "./SearchListCard";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
+import { useLocation } from "react-router-dom";
 
 export function ViewFlex() {
-  const { data, isLoading, isSuccess } = useGetMoviesQuery();
+  const location = useLocation();
 
+  const { data, isLoading, isSuccess } = useGetMoviesQuery(location.search);
+
+  // .........This is the JSX return part...........//
   return (
     <Wrapper>
       <div className="Middle-content">
@@ -19,8 +23,9 @@ export function ViewFlex() {
               img={dets.medium_cover_image}
               title={dets.title}
               rating={dets.rating}
-              genres={dets.genres[0]}
+              genres={dets.genres?.[0]}
               id={dets.id}
+              ptext={dets.slug}
             />
           ))
         )}

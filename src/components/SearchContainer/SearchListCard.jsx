@@ -1,50 +1,70 @@
 import React from "react";
 import styled from "styled-components";
+import { FaStar } from "react-icons/fa6";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export function SearchListCard(props) {
-  const { img, title, rating, genres, id } = props;
+  const { img, title, rating, genres, id, ptext } = props;
+
+  const starsRatings = (starRating) => {
+    const stars = [];
+    const currentRating = (starRating / 10) * 5;
+    const isHalfStar = starRating % 1 && starRating !== 0;
+
+    for (let i = 0; i < currentRating; i++) {
+      stars.push(<FaStar key={i} className="rating" />);
+    }
+    if (isHalfStar) {
+      stars.pop();
+      stars.push(
+        <FaStarHalfAlt key={Math.random() * 10000} className="rating" />
+      );
+    }
+
+    return stars;
+  };
+
+  // ...........This is the JSX return part.............//
 
   return (
     <Wrapper>
-      <Card className="card">
-        <div className="card-img">
-          <img src={img} alt="" />
-        </div>
-        <div className="card-text">
-          <div className="card-text-part-1">
-            <h4>{title}</h4>
-            <p>⭐{rating}</p>
-            <p>
-              Classic and this is the tasty biscut very nice this goodClassic
-              and this is the tasty biscut very nice this goodClassic and this
-              is the tasty biscut very nice this goodClassic and this is the
-              tasty biscut very nice this goodClassic and this is the tasty
-              biscut very nice this goodClassic and this is the tasty biscut
-              very nice this goodClassic and this is the tasty biscut very nice
-              this good Classic and this is the tasty biscut very nice this good
-            </p>
+      <Link to={`/${id}`}>
+        <Card className="card">
+          <div className="card-img">
+            <img src={img} alt="" />
           </div>
-          <div className="card-text-part-2">
-            <p>{genres}</p>
+          <div className="card-text">
+            <div className="card-text-part-1">
+              <h4>{title}</h4>
+              <p>{starsRatings(rating)}</p>
+              <p>{ptext}</p>
+            </div>
+            <div className="card-text-part-2">
+              <p style={{ color: "#6AC045" }}>{genres}</p>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </Link>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   height: min-content;
+  width: 100%;
 `;
 const Card = styled.div`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 10px;
-  border: 4px solid #fff;
+  border: 4px solid #6ac045;
+  /* &:hover {
+  } */
 
   .card-img {
-    width: 100%;
+    /* width: 100%; */
     height: 245px;
 
     img {
@@ -66,32 +86,47 @@ const Card = styled.div`
     .card-text-part-1 {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding-top: 5px;
+      gap: 15px;
       h4 {
         font-weight: 300;
-        font-size: 15px;
+        font-size: 20px;
+        color: #fff;
       }
       p:nth-child(2) {
         color: #000;
-        font-size: 13px;
+        font-size: 18px;
       }
       p:nth-child(3) {
-        font-size: 13px;
-        color: #666;
+        font-size: 16px;
+        color: #999;
         font-weight: 200;
+        width: 300px;
+      }
+      .rating {
+        color: #f3db06;
+        margin-right: 5px;
+
+        &:hover {
+          color: green;
+          transition: all 0.3s;
+          scale: 1.3;
+        }
       }
     }
 
     .card-text-part-2 {
+      width: 300px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
       p {
         font-size: 19px;
         color: green;
-        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-          "Lucida Sans", Arial, sans-serif;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
       }
     }
   }
-  /* &:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  } */
 `;

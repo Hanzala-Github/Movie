@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
 import { MovieCard } from "../MovieCard/MovieCard";
+import { Pagination } from "../Pagination/Pagination";
 export function MovieContainer() {
   const location = useLocation();
 
@@ -37,14 +38,6 @@ export function MovieContainer() {
   return (
     <Wrapper>
       <WrapperContainer>
-        <div className="pagination">
-          <button className="btn1" onClick={handleLeftSidePagination}>
-            <FaArrowLeft />
-          </button>
-          <button className="btn2" onClick={handleRightSidePagination}>
-            <FaArrowRight />
-          </button>
-        </div>
         <div className="heading">
           <h1>Download YTS YIFY movies: HD smallest size</h1>
           <div className="downloads">
@@ -65,10 +58,13 @@ export function MovieContainer() {
               img={card.medium_cover_image}
               title={card.title}
               year={card.year}
+              genres={card.genres?.[0]}
+              genres2={card.genres?.[1]}
               rating={card.rating}
             />
           ))}
         </div>
+        <Pagination totalPages={3105} />
       </WrapperContainer>
     </Wrapper>
   );
@@ -86,35 +82,6 @@ const WrapperContainer = styled.div`
 const Wrapper = styled.div`
   min-height: 100vh;
   position: relative;
-  /* background-color: #fff; */
-
-  .pagination {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* background-color: red; */
-    padding-inline: 50px;
-    width: 100vw;
-    z-index: 20;
-
-    button {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      font-weight: 600;
-      padding: 20px;
-      color: #fff;
-      border-radius: 50%;
-      border: none;
-      background-color: #6ac045;
-    }
-  }
 
   .heading {
     display: flex;

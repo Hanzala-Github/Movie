@@ -1,115 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
 import { FaStar } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 
 export function SearchSideBar() {
+  const [activeStar, setActiveStar] = useState(null);
+
   const location = useLocation();
-
   const navigate = useNavigate();
-
   const queryies = queryString.parse(location.search);
 
-  const handleRating = (rating) => {
+  const handleRating = (rating, starId) => {
     const newQuery = { ...queryies };
-
     newQuery.minimum_rating = `${rating}`;
-
     navigate(`/search?${queryString.stringify(newQuery)}`);
+    setActiveStar(starId); // Set the active star
   };
 
-  // .............This is the JSX return part............//
+  const lines = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
   return (
     <Wrapper>
       <div className="sidebar">
         <h2>Filters</h2>
-
         <div className="rating">
           <h3>Rating</h3>
           <div className="ratingStars">
             <h3>Rating on 1 - 5</h3>
-            <div className="stars-1" onClick={() => handleRating(5)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-            </div>
-            <div className="stars-2" onClick={() => handleRating(4)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon empty" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-3" onClick={() => handleRating(3)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-4" onClick={() => handleRating(2)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-5" onClick={() => handleRating(1)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <span>and Up</span>
-            </div>
-            <h3>Rating on 6 - 10</h3>{" "}
-            <div className="stars-1" onClick={() => handleRating(10)}>
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-            </div>
-            <div className="stars-2" onClick={() => handleRating(9)}>
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-3" onClick={() => handleRating(8)}>
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-4" onClick={() => handleRating(7)}>
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon fill" />
-              <FaStar className="star-icon fill" />
-              <span>and Up</span>
-            </div>
-            <div className="stars-5" onClick={() => handleRating(6)}>
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon empty" />
-              <FaStar className="star-icon fill" />
-              <span>and Up</span>
-            </div>
+
+            {lines.map((stars, lineIndex) => (
+              <div
+                key={lineIndex}
+                id={`stars-${lineIndex + 1}`}
+                className={`star-line ${
+                  activeStar === `stars-${lineIndex + 1}` ? "active" : ""
+                }`}
+                onClick={() => handleRating(stars, `stars-${lineIndex + 1}`)}
+              >
+                {Array.from({ length: 10 }).map((_, starIndex) => (
+                  <FaStar
+                    key={starIndex}
+                    className={`star-icon ${
+                      starIndex < stars ? "fill" : "empty"
+                    }`}
+                  />
+                ))}
+                <span style={{ color: "#6AC045" }}>+ ({stars})</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -141,30 +80,21 @@ const Wrapper = styled.div`
         font-size: 15px;
       }
       .ratingStars {
-        width: 230px;
+        width: 275px;
         display: flex;
         flex-direction: column;
-        gap: 3px;
         border-top: 1px solid #222121;
         padding-block: 10px;
 
-        .stars-1,
-        .stars-2,
-        .stars-3,
-        .stars-4,
-        .stars-5 {
+        .star-line {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 15px;
-          padding-block: 2px;
-          padding-left: 2px;
+          gap: 10px;
+          padding-block: 4px;
+          padding-inline: 5px;
           border-radius: 5px;
           cursor: pointer;
-
-          &:active {
-            background: #c7fac7;
-          }
 
           span {
             color: #888;
@@ -172,15 +102,16 @@ const Wrapper = styled.div`
           }
 
           .star-icon {
-            font-size: 20px;
+            font-size: 12px;
           }
-
           .fill {
             color: #eeb420;
           }
-
           .empty {
             color: #dfdfdf;
+          }
+          &.active {
+            background: #3e613e;
           }
         }
       }
