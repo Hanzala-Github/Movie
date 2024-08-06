@@ -4,6 +4,7 @@ import { SearchListCard } from "./SearchListCard";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { Loader } from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 export function ViewFlex() {
   const location = useLocation();
@@ -15,7 +16,7 @@ export function ViewFlex() {
     <Wrapper>
       <div className="Middle-content">
         {isLoading ? (
-          <Loader />
+          <Skeleton width={861} height={273} />
         ) : (
           data?.data?.movies?.map((dets, i) => (
             <SearchListCard

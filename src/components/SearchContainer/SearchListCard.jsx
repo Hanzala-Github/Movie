@@ -55,23 +55,19 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Card = styled.div`
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   padding: 10px;
-  border: 4px solid #6ac045;
-  /* &:hover {
-  } */
+  border: 1px solid #283a20;
 
   .card-img {
-    /* width: 100%; */
+    width: 220px;
     height: 245px;
 
     img {
-      /* width: 100%; */
-      width: 220px;
-      /* height: 100%; */
-      height: 245px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
     }
@@ -118,14 +114,55 @@ const Card = styled.div`
     }
 
     .card-text-part-2 {
-      width: 300px;
+      width: 20vw;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
       p {
+        /* text-align: right; */
         font-size: 19px;
         color: green;
         font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .card-text {
+      .card-text-part-2 {
+        width: 15vw;
+      }
+    }
+  }
+  @media (max-width: 658px) {
+    gap: 40px;
+
+    .card-text {
+      padding-inline: 5px;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 10px;
+
+      .card-text-part-2 {
+        justify-content: flex-start;
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    .card-text {
+      width: 30%;
+
+      .card-text-part-1 {
+        width: 100%;
+
+        h4 {
+          font-size: 18px;
+        }
+        p:nth-child(3) {
+          width: 100%;
+          background-color: red;
+        }
       }
     }
   }

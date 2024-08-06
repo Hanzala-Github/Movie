@@ -66,4 +66,24 @@ const Wrapper = styled.div`
       object-position: center;
     }
   }
+  @media (max-width: 991px) {
+    .TrailerImg {
+      width: 600px;
+      height: 400px;
+    }
+  }
+  @media (max-width: 634px) {
+    .TrailerImg {
+      width: 400px;
+      height: 300px;
+      padding-top: 9px;
+    }
+  }
+  @media (max-width: 434px) {
+    .TrailerImg {
+      width: 300px;
+      height: 230px;
+      padding-top: 15px;
+    }
+  }
 `;

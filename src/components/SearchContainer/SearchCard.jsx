@@ -5,7 +5,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import styled from "styled-components";
 
 export function SearchCard(props) {
-  const { img, title, rating, genres, id, genres2 } = props;
+  const { img, title, rating, genres, id } = props;
 
   const handlerating = (cardRating) => {
     const stars = [];
@@ -32,34 +32,35 @@ export function SearchCard(props) {
     <Wrapper>
       <Link to={`/${id}`}>
         <div className="card-wrapper">
-          <div className="overlay">
-            <span className="icons">
-              <FaStar
-                className="icon"
-                style={{ color: "#6AC045", fontSize: "28px" }}
-              />
-            </span>
-            <span
-              className="Rating"
-              style={{ fontSize: "26px", fontWeight: "600", color: "#fff" }}
-            >
-              {rating}
-            </span>
-            <span
-              style={{
-                fontSize: "23px",
-                fontWeight: "600",
-                textAlign: "center",
-                color: "#fff",
-              }}
-            >
-              {genres} <br />
-              {/* {genres2} */}
-            </span>
-            <button className="btn1">View Detail</button>
-          </div>
           <Card className="card">
             <div className="card-img">
+              <div className="overlay">
+                <span className="icons">
+                  <FaStar
+                    className="icon"
+                    style={{ color: "#6AC045", fontSize: "28px" }}
+                  />
+                </span>
+                <span
+                  className="Rating"
+                  style={{ fontSize: "26px", fontWeight: "600", color: "#fff" }}
+                >
+                  {rating}
+                </span>
+                <span
+                  style={{
+                    fontSize: "23px",
+                    fontWeight: "600",
+                    textAlign: "center",
+                    color: "#fff",
+                  }}
+                >
+                  {genres}
+                </span>
+                <Link to={`/${id}`}>
+                  <button className="btn1">View Detail</button>
+                </Link>
+              </div>
               <img src={img} alt="" />
             </div>
             <div className="card-text">
@@ -80,53 +81,8 @@ const Wrapper = styled.div`
   height: min-content;
   .card-wrapper {
     position: relative;
-
-    .overlay {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      position: absolute;
-      width: 212px;
-      height: 330px;
-      max-height: 340px;
-      top: 0%;
-      left: 0%;
-      background-color: #000000c7;
-      border: 4px solid #6ac045;
-      /* background-color: #999; */
-      z-index: 20;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s;
-      overflow: hidden;
-      .btn1 {
-        color: #fff;
-        background: #6ac045;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 5px;
-        font-size: 15px;
-        font-weight: 400;
-
-        /* transform: translateY(60%);
-        opacity: 0.5; */
-      }
-
-      /* &:hover .btn1 {
-        transform: translateY(0%);
-        opacity: 1;
-      } */
-    }
   }
 
-  &:hover .overlay {
-    visibility: visible;
-    opacity: 1;
-    .btn1 {
-      animation: fade_in 500ms ease-in-out;
-    }
-  }
   @keyframes fade_in {
     0% {
       transform: translateY(50px);
@@ -140,16 +96,53 @@ const Wrapper = styled.div`
   }
 `;
 const Card = styled.div`
-  width: 212px;
-  height: 330px;
+  width: 200px;
+  height: 320px;
   max-height: 340px;
   margin-bottom: 10px;
   cursor: pointer;
-  border: 4px solid #fff;
 
   .card-img {
+    position: relative;
     width: 100%;
     height: 250px;
+    border: 4px solid #fff;
+    .overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      max-height: 340px;
+      top: 0%;
+      left: 0%;
+      background-color: #000000c7;
+      border: 4px solid #6ac045;
+      z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+      overflow: hidden;
+      .btn1 {
+        color: #fff;
+        background: #6ac045;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 400;
+        cursor: pointer;
+      }
+    }
+    &:hover .overlay {
+      visibility: visible;
+      opacity: 1;
+      .btn1 {
+        animation: fade_in 500ms ease-in-out;
+      }
+    }
 
     img {
       width: 100%;
@@ -161,6 +154,7 @@ const Card = styled.div`
 
   .card-text {
     padding-inline: 5px;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -193,7 +187,28 @@ const Card = styled.div`
     }
   }
 
-  /* &:hover {
-    box-shadow: 1px 1px 5px #494848;
-  } */
+  /* ............This is the @media query part.......... */
+
+  @media (max-width: 991px) {
+    width: 150px;
+    height: 330px;
+    .card-img {
+      .overlay {
+        .btn1 {
+          padding: 8px 8px;
+        }
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    width: 300px;
+    height: 400px;
+    .card-img {
+      .overlay {
+        .btn1 {
+          padding: 8px 8px;
+        }
+      }
+    }
+  }
 `;

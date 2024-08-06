@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaStar } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
+import { MOVIES_QUALITIES } from "../../constants/Moviequalites";
 
 export function SearchSideBar() {
   const [activeStar, setActiveStar] = useState(null);
@@ -20,6 +21,16 @@ export function SearchSideBar() {
 
   const lines = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
+  const handleQuality = (e) => {
+    const newQuery2 = { ...queryies };
+
+    newQuery2.quality = e.target.value;
+
+    navigate(`/search?${queryString.stringify(newQuery2)}`);
+  };
+
+  // ............This is the JSX return part........//
+
   return (
     <Wrapper>
       <div className="sidebar">
@@ -27,8 +38,6 @@ export function SearchSideBar() {
         <div className="rating">
           <h3>Rating</h3>
           <div className="ratingStars">
-            <h3>Rating on 1 - 5</h3>
-
             {lines.map((stars, lineIndex) => (
               <div
                 key={lineIndex}
@@ -50,6 +59,16 @@ export function SearchSideBar() {
               </div>
             ))}
           </div>
+        </div>
+        <div className="qualities">
+          <p>Qualities</p>
+          <select className="select" onChange={(e) => handleQuality(e)}>
+            {MOVIES_QUALITIES.map((qual, i) => (
+              <option value={qual.label} className="option">
+                {qual.value}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </Wrapper>
@@ -112,6 +131,79 @@ const Wrapper = styled.div`
           }
           &.active {
             background: #3e613e;
+          }
+        }
+      }
+    }
+
+    .qualities {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 20px;
+      gap: 10px;
+      p {
+        font-size: 12px;
+        color: #999;
+      }
+      .select {
+        width: 140px;
+        padding: 8px 30px;
+        border-radius: 40px;
+        /* -webkit-appearance: none; */
+        box-sizing: border-box;
+        color: #acaaaa;
+        background: url(../images/website/select-arrows.svg) no-repeat 115px
+          12px #282828;
+        border: 0;
+        .option {
+          color: #999;
+          padding-block: 20px;
+          border-bottom: 2px solid red;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  /* ................This is the @media query part.................... */
+  @media (max-width: 991px) {
+    height: min-content;
+    .sidebar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .rating {
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+
+        .ratingStars {
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+
+          .star-line {
+            .star-icon {
+              font-size: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    .sidebar {
+      .rating {
+        .ratingStars {
+          .star-line {
+            .star-icon {
+              font-size: 18px;
+            }
           }
         }
       }

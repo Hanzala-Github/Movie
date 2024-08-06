@@ -4,6 +4,7 @@ import { useGetSingleMovieWithImagesQuery } from "../../redux/features/MovieApi"
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { TrailerPopup } from "./TrailerPopup";
 import { TrailerImg } from "./TrailerImg";
+// import Skeleton from "react-loading-skeleton";
 
 export function SingleMovieTrailer({ id }) {
   const [trailer, setTrailer] = useState(false);
@@ -29,33 +30,30 @@ export function SingleMovieTrailer({ id }) {
     <>
       <H2 className="trailerH2">Trailer</H2>
       <Wrapper>
+        {/* {
+        singleMovieWithImage.isLoading
+        } */}
         {trailer ? (
           <TrailerPopup setTrailer={setTrailer} videoCode={videoCode} />
         ) : null}
         {/* Trailer_img */}
-        {images[selectedImgIndex] && (
-          <TrailerImg
-            src={images[selectedImgIndex]}
-            // onNPClick={() => {
-            //   if (selectedImgIndex === 0) {
-            //     setSelectedImageIndex(
-            //       Math.min(selectedImgIndex + 1, images.length - 1)
-            //     );
-            //   } else if (selectedImgIndex === 1) {
-            //     setSelectedImageIndex(Math.max(selectedImgIndex - 1, 0));
-            //   }
-            // }}
-            onNextClick={() => {
-              setSelectedImageIndex(
-                Math.min(selectedImgIndex + 1, images.length - 1)
-              );
-            }}
-            onPrevClick={() => {
-              setSelectedImageIndex(Math.max(selectedImgIndex - 1, 0));
-            }}
-            onClose={() => setSelectedImageIndex(null)}
-          />
-        )}
+        <>
+          {images[selectedImgIndex] && (
+            <TrailerImg
+              src={images[selectedImgIndex]}
+              // onLoad={handleImageLoad} // Event to handle image load
+              onNextClick={() => {
+                setSelectedImageIndex(
+                  Math.min(selectedImgIndex + 1, images.length - 1)
+                );
+              }}
+              onPrevClick={() => {
+                setSelectedImageIndex(Math.max(selectedImgIndex - 1, 0));
+              }}
+              onClose={() => setSelectedImageIndex(null)}
+            />
+          )}
+        </>
 
         <div className="trailer">
           <div className="overlay" onClick={handleTrailerPop}>
@@ -113,6 +111,23 @@ const Wrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  @media (max-width: 991px) {
+    gap: 10px;
+
+    .trailer {
+      width: 25%;
+      height: 170px;
+    }
+  }
+  @media (max-width: 768px) {
+    gap: 15px;
+    flex-direction: column;
+    .trailer {
+      width: 70%;
+      height: 230px;
     }
   }
 `;

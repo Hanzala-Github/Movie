@@ -90,4 +90,11 @@ const Popup = styled.div`
     align-items: center;
     justify-content: center;
   }
+
+  @media (max-width: 609px) {
+    width: 400px;
+  }
+  @media (max-width: 609px) {
+    width: 270px;
+  }
 `;

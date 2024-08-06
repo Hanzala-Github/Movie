@@ -16,5 +16,6 @@ export * from "./SearchContainer/SearchViewBar";
 export * from "./SearchContainer/ViewGrid";
 export * from "./SearchContainer/ViewFlex";
 export * from "./SearchContainer/SearchCard";
+export * from "./Header/Header2";
 
 export { Header, Footer, MovieContainer, Loader, MovieCard, SingleMovie };

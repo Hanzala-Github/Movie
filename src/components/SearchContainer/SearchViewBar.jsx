@@ -4,10 +4,14 @@ import { TfiLayoutGrid2Alt, TfiMenuAlt } from "react-icons/tfi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { SORT_BY_FILTERS } from "../../constants/SortByFilters";
 import queryString from "query-string";
+import { GENRES } from "../../constants/genres";
 
 export function SearchViewBar(props) {
   const { setShowView } = props;
   const [isGridActive, setIsGridActive] = useState(true);
+
+  const [genresFilter, setGenresFilter] = useState(null);
+
   const location = useLocation();
   const navigate = useNavigate();
   const queries = queryString.parse(location.search);
@@ -29,6 +33,16 @@ export function SearchViewBar(props) {
     navigate(`/search?${queryString.stringify(newQueries)}`);
   };
 
+  const handleGenres = (e) => {
+    const queryies = queryString.parse(location.search);
+    const newQuery = { ...queryies };
+
+    newQuery.genre = e.target.value;
+    navigate(`/search?${queryString.stringify(newQuery)}`);
+  };
+
+  // ............This is the JSX return paert........//
+
   return (
     <Wrapper>
       <div className="view-bar">
@@ -38,8 +52,19 @@ export function SearchViewBar(props) {
           </h3>
         </div>
         <div className="view-dropdown">
+          <div className="genres-drop-down">
+            <p>Genres</p>
+            <select className="select" onChange={(e) => handleGenres(e)}>
+              {GENRES.map((genres, i) => (
+                <option key={i} className="option" value={genres.label}>
+                  {genres.value}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="selection">
-            <p>Sort By :</p>
+            <p>Sort By</p>
             <select className="select" onChange={handleSortSelect}>
               {SORT_BY_FILTERS.map((attribute, i) => (
                 <option
@@ -55,7 +80,7 @@ export function SearchViewBar(props) {
           </div>
 
           <div className="view">
-            <p>View :</p>
+            <p>View</p>
             <NavLink
               to="#"
               onClick={handleGridClick}
@@ -89,7 +114,7 @@ const Wrapper = styled.div`
 
     .search-result {
       h3 {
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 400;
         span {
           color: #6ac045;
@@ -102,6 +127,36 @@ const Wrapper = styled.div`
       align-items: center;
       gap: 30px;
 
+      .genres-drop-down {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        p {
+          font-size: 12px;
+          color: #999;
+        }
+        .select {
+          width: 140px;
+          padding: 8px 30px;
+          border-radius: 40px;
+          box-sizing: border-box;
+          color: #acaaaa;
+          background: url(../images/website/select-arrows.svg) no-repeat 115px
+            12px #282828;
+          border: 0;
+          .option {
+            color: #999;
+            padding-block: 20px;
+            border-bottom: 2px solid red;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
       .selection {
         display: flex;
         gap: 10px;
@@ -109,11 +164,11 @@ const Wrapper = styled.div`
         justify-content: center;
         p {
           font-weight: 250;
-          font-size: 15px;
+          font-size: 12px;
         }
 
         select {
-          padding: 10px 30px;
+          padding: 8px 30px;
           border-radius: 40px;
 
           &:focus {
@@ -122,8 +177,15 @@ const Wrapper = styled.div`
         }
 
         .select {
+          width: 140px;
+          /* -webkit-appearance: none; */
+          box-sizing: border-box;
+          color: #acaaaa;
+          background: url(../images/website/select-arrows.svg) no-repeat 115px
+            12px #282828;
+          border: 0;
           .option {
-            color: #444;
+            color: #999;
             padding-block: 20px;
             border-bottom: 2px solid red;
           }
@@ -153,6 +215,28 @@ const Wrapper = styled.div`
           color: #6ac045;
         }
       }
+    }
+  }
+  /* ................This is the @media query part............... */
+  @media (max-width: 768px) {
+    background-color: #171717;
+    .view-bar {
+      flex-direction: column;
+      gap: 40px;
+
+      .view-dropdown {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  /* ............This is the 560px @media query .............. */
+
+  @media (max-width: 560px) {
+    background-color: #171717;
+    .view-dropdown {
+      flex-direction: column-reverse;
     }
   }
 `;

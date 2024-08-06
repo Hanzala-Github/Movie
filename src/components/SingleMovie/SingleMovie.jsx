@@ -13,6 +13,7 @@ import { FiDownload } from "react-icons/fi";
 import { DownloadPop } from "./DownloadPop";
 import { SingleMovieTrailer } from "./SingleMovieTrailer";
 import { Loader, SummeryCast } from "../index";
+import Skeleton from "react-loading-skeleton";
 
 // .........This is the function component part........//
 export function SingleMovie() {
@@ -58,7 +59,7 @@ export function SingleMovie() {
         {/* Left */}
         <div className="left">
           {singleMovieQuery.isLoading ? (
-            <Loader />
+            <Skeleton width={260} height={380} />
           ) : (
             <SingleMovieCard
               id={id}
@@ -98,9 +99,20 @@ export function SingleMovie() {
         </div>
         {/* Center */}
         <div className="center">
-          <h2>{singleMovieTitle}</h2>
+          <h2>
+            {singleMovieWithImages.isLoading ? (
+              <Skeleton width={400} height={40} />
+            ) : (
+              singleMovieTitle
+            )}
+          </h2>
           <p className="p1">
-            {singleMovieYear} <br />
+            {singleMovieWithImages.isLoading ? (
+              <Skeleton width={500} height={27} count={4} />
+            ) : (
+              singleMovieYear
+            )}{" "}
+            {/* <br /> */}
             {genres?.genres.map((g, i) => (
               <span key={i} className="spanGenre">
                 {g} /{" "}
@@ -127,7 +139,13 @@ export function SingleMovie() {
                   style={{ fontSize: "28px", color: "green" }}
                 />
               </span>{" "}
-              <p>{Like}</p>
+              <p>
+                {singleMovieWithImages.isLoading ? (
+                  <Skeleton width={70} height={25} />
+                ) : (
+                  Like
+                )}
+              </p>
             </div>
 
             <div className="menu3">
@@ -137,12 +155,17 @@ export function SingleMovie() {
                 style={{ width: "30px" }}
               />{" "}
               <p>
-                {" "}
-                {Rating}{" "}
-                <span>
-                  AUDIENCE ·{" "}
-                  <span style={{ color: "#13d41d" }}>5K ratings</span>
-                </span>
+                {singleMovieWithImages.isLoading ? (
+                  <Skeleton width={180} height={20} />
+                ) : (
+                  <>
+                    {Rating}{" "}
+                    <span>
+                      AUDIENCE ·{" "}
+                      <span style={{ color: "#13d41d" }}>5K ratings</span>
+                    </span>
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -151,26 +174,32 @@ export function SingleMovie() {
         <div className="right">
           <p>Similar Movies</p>
           <div className="MovieCrads">
-            {suggestionQuery.isLoading ? (
-              <Loader />
-            ) : (
-              suggestionQuery?.data?.data?.movies?.map((movie, i) => (
-                <SingleMovieCard
-                  key={i}
-                  img={movie.medium_cover_image}
-                  width="110px"
-                  height="140px"
-                  id={movie.id}
-                />
-              ))
-            )}
+            {suggestionQuery.isLoading
+              ? Array(4)
+                  .fill()
+                  .map((_, i) => <Skeleton key={i} width={110} height={140} />)
+              : suggestionQuery?.data?.data?.movies?.map((movie, i) => (
+                  <SingleMovieCard
+                    key={i}
+                    img={movie.medium_cover_image}
+                    width="110px"
+                    height="140px"
+                    id={movie.id}
+                  />
+                ))}
           </div>
         </div>
       </CardWrapper>
       {/* This is the single Movie Trailer and summery ans top casts */}
       <SingleMovieTrailer id={id} />
       <SummeryCast
-        summery={singleMovieSummeryCast?.description_full}
+        summery={
+          singleMovieQuery.isLoading ? (
+            <Skeleton width={800} height={18} count={10} />
+          ) : (
+            singleMovieSummeryCast?.description_full
+          )
+        }
         uploadDate={singleMovieSummeryCast?.date_uploaded}
         castData={singleMovieSummeryCast?.cast}
       />
@@ -182,6 +211,7 @@ export function SingleMovie() {
 const Wrapper = styled.div`
   position: relative;
   height: min-content;
+  margin-top: 86px;
 
   .background-image {
     position: absolute;
@@ -361,6 +391,70 @@ const CardWrapper = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
+    }
+  }
+
+  /* ..........................This is the @media query part...................... */
+
+  @media (max-width: 991px) {
+    max-width: 900px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* center */
+    .center {
+      width: 80%;
+      align-items: center;
+      justify-content: center;
+      margin-block: 20px;
+
+      h2 {
+        font-weight: 500;
+      }
+
+      .p1 {
+        font-weight: 400;
+      }
+    }
+
+    /* Right */
+    .right {
+      margin-block: 20px;
+
+      p {
+        padding-left: 20px;
+      }
+
+      .MovieCrads {
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  @media (max-width: 568px) {
+    /* center */
+    .center {
+      align-items: flex-start;
+      gap: 20px;
+
+      h2 {
+        font-weight: 400;
+        font-size: 30px;
+      }
+
+      .p1 {
+        font-weight: 300;
+      }
+    }
+
+    /* Right */
+    .right {
+      .MovieCrads {
+        flex-wrap: wrap;
+      }
     }
   }
 `;

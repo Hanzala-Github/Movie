@@ -44,6 +44,7 @@ const Wrapper = styled.div`
   height: min-content;
   background-color: #111111;
   color: #999;
+  margin-top: 86px;
 `;
 
 const SearchContentWrapper = styled.div`
@@ -72,7 +73,6 @@ const SearchContentWrapper = styled.div`
     .side-bar {
       flex: 1;
       border: 1px solid #222121;
-      background-color: #222;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
         rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
       border-radius: 10px;
@@ -84,6 +84,19 @@ const SearchContentWrapper = styled.div`
       flex-direction: column;
       gap: 20px;
       flex: 3;
+    }
+  }
+
+  @media (max-width: 991px) {
+    max-width: 900px;
+    .container {
+      flex-direction: column;
+
+      .side-bar {
+      }
+
+      .middle-content {
+      }
     }
   }
 `;

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { SearchCard } from "./SearchCard";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
-import { Loader } from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 export function ViewGrid() {
   const location = useLocation();
@@ -14,7 +14,9 @@ export function ViewGrid() {
     <Wrapper>
       <div className="Middle-content">
         {isLoading ? (
-          <Loader />
+          Array(20)
+            .fill()
+            .map((_, i) => <Skeleton width={212} height={330} key={i} />)
         ) : data?.data?.movies?.length ? (
           data.data.movies.map((dets, i) => (
             <SearchCard
@@ -23,7 +25,6 @@ export function ViewGrid() {
               title={dets.title}
               rating={dets.rating}
               genres={dets.genres?.[0] || "N/A"}
-              genres2={dets.genres?.[1] || "N/A"}
               id={dets.id}
             />
           ))
@@ -45,5 +46,11 @@ const Wrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     gap: 10px;
+  }
+
+  @media (max-width: 560px) {
+    .Middle-content {
+      justify-content: space-around;
+    }
   }
 `;
