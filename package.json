@@ -1,7 +1,7 @@
 {
-  "homepage": "https://Hanzala-Github.github.io/Movie",
+  "homepage": "https://Hanzala-Github.github.io/",
   "name": "movie",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
