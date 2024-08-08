@@ -138,7 +138,7 @@ const Wrapper = styled.div`
         }
         .select {
           width: 140px;
-          padding: 8px 30px;
+          padding: 8px 12px 12px 5px;
           border-radius: 40px;
           box-sizing: border-box;
           color: #acaaaa;
@@ -168,7 +168,7 @@ const Wrapper = styled.div`
         }
 
         select {
-          padding: 8px 30px;
+          padding: 8px 12px 12px 5px;
           border-radius: 40px;
 
           &:focus {

@@ -55,7 +55,7 @@ const PopCardWrapper = styled.div`
 const Popup = styled.div`
   width: 600px;
   position: fixed;
-  top: 10%;
+  top: 15%;
   transform: translateY(0%);
   padding-block: 30px;
   background-color: #fff;

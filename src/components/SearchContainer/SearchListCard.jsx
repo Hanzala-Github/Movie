@@ -58,12 +58,13 @@ const Card = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  padding: 10px;
+  padding: 20px 10px;
   border: 1px solid #283a20;
 
   .card-img {
     width: 220px;
-    height: 245px;
+    height: 255px;
+    width: 35%;
 
     img {
       width: 100%;
@@ -74,7 +75,9 @@ const Card = styled.div`
   }
 
   .card-text {
-    padding-inline: 5px;
+    width: 50%;
+    /* background: red; */
+    padding-inline: 20px;
     display: flex;
     justify-content: space-between;
     gap: 5px;
@@ -114,55 +117,69 @@ const Card = styled.div`
     }
 
     .card-text-part-2 {
-      width: 20vw;
+      /* width: 20vw; */
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
       p {
-        /* text-align: right; */
         font-size: 19px;
         color: green;
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
       }
     }
   }
 
   @media (max-width: 768px) {
-    .card-text {
-      .card-text-part-2 {
-        width: 15vw;
-      }
+    .card-img {
+      width: 37%;
     }
-  }
-  @media (max-width: 658px) {
-    gap: 40px;
 
     .card-text {
-      padding-inline: 5px;
-      display: flex;
-      justify-content: flex-start;
+      width: 40%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: space-around;
+    .card-img {
+      width: 220px;
+      height: 255px;
+    }
+
+    .card-text {
+      width: 40%;
+      padding-inline: 10px;
       flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       gap: 10px;
-
-      .card-text-part-2 {
-        justify-content: flex-start;
-      }
-    }
-  }
-  @media (max-width: 560px) {
-    .card-text {
-      width: 30%;
 
       .card-text-part-1 {
         width: 100%;
-
-        h4 {
-          font-size: 18px;
-        }
+        padding-top: 0px;
+        gap: 5px;
         p:nth-child(3) {
           width: 100%;
-          background-color: red;
+          font-size: 14px;
         }
+      }
+    }
+  }
+  @media (max-width: 478px) {
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    .card-img {
+      width: 350px;
+      height: 255px;
+    }
+
+    .card-text {
+      width: 100%;
+      padding-top: 10px;
+
+      .card-text-part-1 {
+        padding-top: 0px;
+        gap: 5px;
       }
     }
   }

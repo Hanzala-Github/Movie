@@ -25,7 +25,7 @@ export function SummeryCast(props) {
       <div className="SummeryCast">
         <div className="summeryUpload">
           <div className="summery">
-            <h3 className="firstH3">Summery</h3>
+            <h3 className="firstH3">Summary</h3>
             <p>{summery}</p>
           </div>
           <div className="upload">

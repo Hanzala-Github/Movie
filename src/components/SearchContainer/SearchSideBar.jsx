@@ -64,7 +64,7 @@ export function SearchSideBar() {
           <p>Qualities</p>
           <select className="select" onChange={(e) => handleQuality(e)}>
             {MOVIES_QUALITIES.map((qual, i) => (
-              <option value={qual.label} className="option">
+              <option value={qual.label} className="option" key={i}>
                 {qual.value}
               </option>
             ))}
@@ -148,7 +148,7 @@ const Wrapper = styled.div`
       }
       .select {
         width: 140px;
-        padding: 8px 30px;
+        padding: 8px 12px 12px 5px;
         border-radius: 40px;
         /* -webkit-appearance: none; */
         box-sizing: border-box;

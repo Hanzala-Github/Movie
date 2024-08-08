@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -25,6 +25,8 @@ export function MovieCard(props) {
     }
     return stars;
   };
+
+  // ...........This is the jsx return part.......//
 
   return (
     <Wrapper>
@@ -147,6 +149,7 @@ const Card = styled.div`
       object-fit: cover;
       object-position: center;
       display: block;
+      min-height: 310px;
       border-radius: 0.2rem;
     }
     .skeleton-img {

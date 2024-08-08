@@ -1,43 +1,50 @@
-import queryString from "query-string";
 import { FaStar } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
 
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import { MovieCard } from "../MovieCard/MovieCard";
 import { Pagination } from "../Pagination/Pagination";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export function MovieContainer() {
+  gsap.registerPlugin(useGSAP);
+
+  const h1ref = useRef();
+  const pref = useRef();
+  const starRef = useRef();
+
+  useGSAP(() => {
+    gsap.from([h1ref.current, pref.current, starRef.current], {
+      y: "50px",
+      opacity: 0,
+      duration: 1,
+    });
+  }, []);
+
   const location = useLocation();
 
   const { data, isLoading } = useGetMoviesQuery(location.search);
-  const nav = useNavigate();
 
-  const qs = queryString.parse(location.search);
-
-  const handleLeftSidePagination = () => {
-    const newPage = Number(qs.page || 0);
-    const newQs = { ...qs };
-    newQs.page = Math.max(newPage - 1, 0);
-    nav(`${location.pathname}?${queryString.stringify(newQs)}`);
-  };
-
-  const handleRightSidePagination = () => {
-    const newPage = Number(qs.page || 1);
-    nav(`${location.pathname}?page=${newPage + 1}`);
-  };
+  // ................This is the JSX return part.............//
 
   return (
     <Wrapper>
       <WrapperContainer>
         <div className="heading">
-          <h1>Download YTS YIFY movies: HD smallest size</h1>
-          <div className="downloads">
-            <span style={{ color: "#6AC045" }}>
+          <div className="h1" style={{ overflow: "hidden" }}>
+            <h1 ref={h1ref}>Download YTS YIFY movies: HD smallest size</h1>
+          </div>
+          <div className="downloads" style={{ overflow: "hidden" }}>
+            <span style={{ color: "#6AC045" }} ref={starRef}>
               <FaStar />
             </span>
-            <h3>Popular Downloads</h3>
+            <div className="h3" style={{ overflow: "hidden" }}>
+              <h3 ref={pref}>Popular Downloads</h3>
+            </div>
           </div>
         </div>
 
