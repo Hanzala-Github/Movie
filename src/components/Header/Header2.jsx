@@ -16,6 +16,7 @@ export function Header2() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // ............This is the JSx return part........//
   return (
     <Navbar>
       <div className="navbar-header">
@@ -41,7 +42,7 @@ export function Header2() {
         <div className="start">
           {isMenuOpen || isMd ? (
             <>
-              <SearchDropdown />
+              <SearchDropdown setIsMenuOpen={setIsMenuOpen} />
               <div
                 className="links"
                 style={{
@@ -51,10 +52,18 @@ export function Header2() {
                   whiteSpace: "nowrap",
                 }}
               >
-                <Link to="/" style={{ color: "#999" }}>
+                <Link
+                  to="/"
+                  style={{ color: "#999" }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Home
                 </Link>
-                <Link to="/search" style={{ color: "#999" }}>
+                <Link
+                  to="/search"
+                  style={{ color: "#999" }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Browser Movies
                 </Link>
               </div>

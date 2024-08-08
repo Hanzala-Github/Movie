@@ -7,7 +7,9 @@ import { useGetMoviesQuery } from "../../redux/features/MovieApi";
 import debounce from "lodash.debounce";
 import { Spinner } from "@chakra-ui/react";
 
-export function SearchDropdown() {
+export function SearchDropdown(props) {
+  const { setIsMenuOpen } = props;
+
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -45,11 +47,17 @@ export function SearchDropdown() {
     setFocused(false);
   };
 
+  const handleSearchClick = () => {
+    setFocused(false);
+    setIsMenuOpen(false);
+  };
+
   // ............This is the JSXv return part.......//
   return (
     <Search onFocus={() => setFocused(true)} onBlur={(e) => handleBlur(e)}>
       <SearchBar>
         <input
+          tabIndex={-1}
           onChange={handleDebounceSerch}
           type="text"
           placeholder="search movies"
@@ -70,7 +78,7 @@ export function SearchDropdown() {
             <Dropdown>
               {data?.data?.movies?.map((movie, i) => (
                 <Link to={`${movie.id}`} key={i} onClick={handleListClick}>
-                  <List key={i}>
+                  <List key={i} onClick={handleSearchClick}>
                     <div className="list-img">
                       <img
                         src={movie.medium_cover_image}

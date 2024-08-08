@@ -5,7 +5,6 @@ import {
   MovieContainer,
   SingleMovie,
   SearchContainer,
-  Cursor,
 } from "./components";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -19,7 +18,6 @@ export default function App() {
   }, []);
   return (
     <div className="App">
-      <Cursor />
       <SkeletonTheme baseColor="#313131" highlightColor="#525252">
         <Header2 />
         <Routes>
