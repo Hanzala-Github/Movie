@@ -20,7 +20,12 @@ export function Header2() {
     <Navbar>
       <div className="navbar-header">
         <div className="logo">
-          <img src="https://yts.mx/assets/images/website/logo-YTS.svg" alt="" />
+          <Link to="/">
+            <img
+              src="https://yts.mx/assets/images/website/logo-YTS.svg"
+              alt=""
+            />
+          </Link>
         </div>
         <div
           className={`menu ${isMenuOpen ? "open" : ""}`}
