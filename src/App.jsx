@@ -14,7 +14,6 @@ import { Header2 } from "./components/index";
 
 export default function App() {
   const navigate = useNavigate();
-
   useEffect(() => {
     navigate("/");
   }, []);
@@ -22,15 +21,13 @@ export default function App() {
     <div className="App">
       <Cursor />
       <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-        <BrowserRouter>
-          <Header2 />
-          <Routes>
-            <Route exact path="/" element={<MovieContainer />} />
-            <Route exact path="/:id" element={<SingleMovie />} />
-            <Route exact path="/search" element={<SearchContainer />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+        <Header2 />
+        <Routes>
+          <Route exact path="/" element={<MovieContainer />} />
+          <Route exact path="/:id" element={<SingleMovie />} />
+          <Route exact path="/search" element={<SearchContainer />} />
+        </Routes>
+        <Footer />
       </SkeletonTheme>
     </div>
   );
