@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Footer,
   // Header,
@@ -7,12 +7,17 @@ import {
   SearchContainer,
   Cursor,
 } from "./components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Header2 } from "./components/index";
 
 export default function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/");
+  }, []);
   return (
     <div className="App">
       <Cursor />
