@@ -48,7 +48,7 @@ export function SearchViewBar(props) {
       <div className="view-bar">
         <div className="search-result">
           <h3>
-            0 items found for <span>"searchData"</span>
+            20 items found for <span>"searchData"</span>
           </h3>
         </div>
         <div className="view-dropdown">
