@@ -55,7 +55,7 @@ const PopCardWrapper = styled.div`
 const Popup = styled.div`
   width: 600px;
   position: fixed;
-  top: 10%;
+  top: 15%;
   transform: translateY(0%);
   padding-block: 30px;
   background-color: #fff;
@@ -89,5 +89,12 @@ const Popup = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+  }
+
+  @media (max-width: 609px) {
+    width: 400px;
+  }
+  @media (max-width: 609px) {
+    width: 270px;
   }
 `;

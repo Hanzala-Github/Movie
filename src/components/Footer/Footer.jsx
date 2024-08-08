@@ -78,4 +78,54 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  /* ...............This is the @media query part */
+
+  @media (max-width: 768px) {
+    height: min-content;
+
+    .footer {
+      text-align: center;
+      width: 600px;
+      margin-inline: auto;
+
+      .top {
+        width: 100%;
+      }
+      .center {
+        width: 100%;
+      }
+      .bottom {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 612px) {
+    height: min-content;
+
+    .footer {
+      width: 500px;
+
+      .top {
+        width: 90%;
+      }
+      .center {
+        width: 90%;
+      }
+      .bottom {
+        width: 90%;
+      }
+    }
+  }
+  @media (max-width: 512px) {
+    .footer {
+      width: 400px;
+    }
+  }
+  @media (max-width: 412px) {
+    .footer {
+      width: 100%;
+    }
+  }
 `;

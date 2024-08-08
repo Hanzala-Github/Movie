@@ -10,7 +10,7 @@ export function DownloadButton(props) {
   return (
     <Button>
       <span className="span-1">{quality}</span>
-      <p style={{ color: "#c7c6c6" }}>video_codec</p>
+      <p style={{ color: "#c7c6c6" }}>Video Codec</p>
       <p>
         WEB.
         <span style={{ color: "green", fontSize: "14px" }}>{video_codec}</span>
@@ -31,9 +31,6 @@ export function DownloadButton(props) {
 }
 
 const Button = styled.div`
-  /* .pop-btn-1,
-  .pop-btn-2,
-  .pop-btn-3 { */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -73,5 +70,18 @@ const Button = styled.div`
     color: #c7c6c6;
     height: 60px;
     border: 3px solid #c7c6c6;
+  }
+  @media (max-width: 609px) {
+    border-right: 1px solid #b4b4b481;
+
+    .btn-1 {
+      width: 120px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .span-1 {
+      font-size: 27px;
+    }
   }
 `;

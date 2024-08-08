@@ -26,7 +26,7 @@ const Wrapper = styled.div`
   justify-content: center;
   background-color: #111111f6;
   position: fixed;
-  top: 7%;
+  top: 0%;
   left: 0%;
   cursor: pointer;
   z-index: 20;
@@ -35,6 +35,7 @@ const Wrapper = styled.div`
     position: relative;
     width: 900px;
     height: 450px;
+    margin-top: 100px;
 
     .closeIcon {
       position: absolute;
@@ -64,6 +65,26 @@ const Wrapper = styled.div`
       height: 100%;
       object-fit: cover;
       object-position: center;
+    }
+  }
+  @media (max-width: 991px) {
+    .TrailerImg {
+      width: 600px;
+      height: 400px;
+    }
+  }
+  @media (max-width: 634px) {
+    .TrailerImg {
+      width: 400px;
+      height: 300px;
+      padding-top: 9px;
+    }
+  }
+  @media (max-width: 434px) {
+    .TrailerImg {
+      width: 300px;
+      height: 230px;
+      padding-top: 15px;
     }
   }
 `;

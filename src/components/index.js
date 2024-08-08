@@ -1,5 +1,4 @@
 import { Footer } from "./Footer/Footer";
-import { Header } from "./Header/Header";
 import { Loader } from "./Loader/Loader";
 import { MovieContainer } from "./MovieContainer/MovieContainer";
 import { MovieCard } from "./MovieCard/MovieCard";
@@ -16,5 +15,7 @@ export * from "./SearchContainer/SearchViewBar";
 export * from "./SearchContainer/ViewGrid";
 export * from "./SearchContainer/ViewFlex";
 export * from "./SearchContainer/SearchCard";
+export * from "./Header/Header2";
+export * from "./Cursor/Cursor";
 
-export { Header, Footer, MovieContainer, Loader, MovieCard, SingleMovie };
+export { Footer, MovieContainer, Loader, MovieCard, SingleMovie };

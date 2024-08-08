@@ -55,30 +55,29 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Card = styled.div`
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   justify-content: flex-start;
-  padding: 10px;
-  border: 4px solid #6ac045;
-  /* &:hover {
-  } */
+  padding: 20px 10px;
+  border: 1px solid #283a20;
 
   .card-img {
-    /* width: 100%; */
-    height: 245px;
+    width: 220px;
+    height: 255px;
+    width: 35%;
 
     img {
-      /* width: 100%; */
-      width: 220px;
-      /* height: 100%; */
-      height: 245px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
     }
   }
 
   .card-text {
-    padding-inline: 5px;
+    width: 50%;
+    /* background: red; */
+    padding-inline: 20px;
     display: flex;
     justify-content: space-between;
     gap: 5px;
@@ -118,14 +117,69 @@ const Card = styled.div`
     }
 
     .card-text-part-2 {
-      width: 300px;
+      /* width: 20vw; */
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
       p {
         font-size: 19px;
         color: green;
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .card-img {
+      width: 37%;
+    }
+
+    .card-text {
+      width: 40%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: space-around;
+    .card-img {
+      width: 220px;
+      height: 255px;
+    }
+
+    .card-text {
+      width: 40%;
+      padding-inline: 10px;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 10px;
+
+      .card-text-part-1 {
+        width: 100%;
+        padding-top: 0px;
+        gap: 5px;
+        p:nth-child(3) {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  @media (max-width: 478px) {
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    .card-img {
+      width: 350px;
+      height: 255px;
+    }
+
+    .card-text {
+      width: 100%;
+      padding-top: 10px;
+
+      .card-text-part-1 {
+        padding-top: 0px;
+        gap: 5px;
       }
     }
   }

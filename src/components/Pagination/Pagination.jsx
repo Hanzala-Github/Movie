@@ -9,14 +9,14 @@ export function Pagination({ totalPages }) {
   const location = useLocation();
   const queries = queryString.parse(location.search);
 
-  const page = Number(queries.page || 0);
+  const page = Number(queries.page || 1);
+
+  // const leftPages = Math.min(3, Math.max(page - 1, 0));
 
   const leftPages = Math.min(3, Math.max(page - 1, 0));
   const rightPages = Math.min(3, Math.max(totalPages - page, 0));
 
   // ......Pagination Next and previous button..........//
-
-  console.log(page);
 
   const queryies2 = queryString.parse(location.search);
 
@@ -94,7 +94,7 @@ export function Pagination({ totalPages }) {
 }
 
 const Wrapper = styled.div`
-  width: 800px;
+  /* width: 800px; */
   margin-block: 30px;
   margin-inline: auto;
 
@@ -138,6 +138,45 @@ const Wrapper = styled.div`
       border-radius: 8px;
       cursor: pointer;
       user-select: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pagination-wrapper {
+      gap: 5px;
+
+      span {
+        width: 40px;
+        height: 40px;
+        font-size: 10px;
+        font-weight: 500;
+      }
+
+      button {
+        width: 50px;
+        height: 40px;
+        font-size: 10px;
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    .pagination-wrapper {
+      gap: 5px;
+      flex-wrap: wrap;
+      /* flex-direction: column; */
+
+      span {
+        width: 65px;
+        height: 40px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      button {
+        width: 80px;
+        height: 40px;
+        font-size: 15px;
+      }
     }
   }
 `;

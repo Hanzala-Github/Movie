@@ -1,4 +1,5 @@
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 
 export function SummeryCast(props) {
@@ -16,12 +17,15 @@ export function SummeryCast(props) {
     hour12: true,
   });
 
+  // Ensure castData is an array before using map
+  const isCastDataArray = Array.isArray(castData);
+
   return (
     <Wrapper>
       <div className="SummeryCast">
         <div className="summeryUpload">
           <div className="summery">
-            <h3 className="firstH3">Summery</h3>
+            <h3 className="firstH3">Summary</h3>
             <p>{summery}</p>
           </div>
           <div className="upload">
@@ -30,23 +34,25 @@ export function SummeryCast(props) {
         </div>
         <div className="casts">
           <h3 className="thirdtH3">Top cast</h3>
-          {castData?.map((cast, i) => (
-            <div className="cast" key={i}>
-              <img
-                src={
-                  cast.url_small_image ??
-                  "https://yts.mx/assets/images/actors/thumb/nm3211555.jpg"
-                }
-                alt=""
-              />
-              <p>
-                {cast.name}
-                <span style={{ color: "#fff", marginLeft: "7px" }}>
-                  {cast.character_name}
-                </span>
-              </p>
-            </div>
-          ))}
+          {isCastDataArray &&
+            castData.map((cast, i) => (
+              <div className="cast" key={i}>
+                <img
+                  src={
+                    cast.url_small_image ??
+                    "https://yts.mx/assets/images/actors/thumb/nm3211555.jpg"
+                  }
+                  alt=""
+                />
+                <p>
+                  {cast.name}
+                  <span style={{ color: "#fff", marginLeft: "7px" }}>
+                    {cast.character_name}
+                  </span>
+                </p>
+              </div>
+            ))}
+          {!isCastDataArray && <p>No cast data available</p>}
         </div>
       </div>
     </Wrapper>
@@ -132,6 +138,58 @@ const Wrapper = styled.div`
           letter-spacing: -0.5px;
         }
       }
+    }
+  }
+
+  /* ...................This is the @media query part............... */
+
+  @media (max-width: 991px) {
+    .SummeryCast {
+      max-width: 900px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .summeryUpload {
+        margin-block: 20px;
+        text-align: center;
+        padding-inline: 30px;
+
+        .summery {
+        }
+      }
+
+      .casts {
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .SummeryCast {
+      /* max-width: 900px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column; */
+
+      .summeryUpload {
+        width: 90%;
+        justify-content: center;
+
+        .summery {
+          p {
+            font-size: 15px;
+            width: 100%;
+          }
+        }
+      }
+
+      /* .casts {
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      } */
     }
   }
 `;
