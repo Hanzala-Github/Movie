@@ -65,11 +65,12 @@ const Card = styled.div`
     width: 220px;
     height: 255px;
     width: 35%;
+    background-color: #222;
 
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
     }
   }

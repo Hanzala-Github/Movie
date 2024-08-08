@@ -10,7 +10,7 @@ export function SearchViewBar(props) {
   const { setShowView } = props;
   const [isGridActive, setIsGridActive] = useState(true);
 
-  const [genresFilter, setGenresFilter] = useState(null);
+  // const [genresFilter, setGenresFilter] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,8 +56,8 @@ export function SearchViewBar(props) {
             <p>Genres</p>
             <select className="select" onChange={(e) => handleGenres(e)}>
               {GENRES.map((genres, i) => (
-                <option key={i} className="option" value={genres.label}>
-                  {genres.value}
+                <option key={i} className="option" value={genres.value}>
+                  {genres.label}
                 </option>
               ))}
             </select>

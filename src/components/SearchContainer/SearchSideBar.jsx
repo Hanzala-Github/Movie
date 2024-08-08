@@ -47,7 +47,7 @@ export function SearchSideBar() {
                 }`}
                 onClick={() => handleRating(stars, `stars-${lineIndex + 1}`)}
               >
-                {Array.from({ length: 10 }).map((_, starIndex) => (
+                {Array.from({ length: 9 }).map((_, starIndex) => (
                   <FaStar
                     key={starIndex}
                     className={`star-icon ${
@@ -64,8 +64,8 @@ export function SearchSideBar() {
           <p>Qualities</p>
           <select className="select" onChange={(e) => handleQuality(e)}>
             {MOVIES_QUALITIES.map((qual, i) => (
-              <option value={qual.label} className="option" key={i}>
-                {qual.value}
+              <option value={qual.value} className="option" key={i}>
+                {qual.label}
               </option>
             ))}
           </select>
