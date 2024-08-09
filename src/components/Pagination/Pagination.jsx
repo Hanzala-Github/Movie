@@ -92,7 +92,6 @@ export function Pagination({ totalPages }) {
 }
 
 const Wrapper = styled.div`
-  /* width: 800px; */
   margin-block: 30px;
   margin-inline: auto;
 
@@ -161,7 +160,6 @@ const Wrapper = styled.div`
     .pagination-wrapper {
       gap: 5px;
       flex-wrap: wrap;
-      /* flex-direction: column; */
 
       span {
         width: 65px;

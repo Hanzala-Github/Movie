@@ -57,7 +57,6 @@ export function SearchDropdown(props) {
     <Search onFocus={() => setFocused(true)} onBlur={(e) => handleBlur(e)}>
       <SearchBar>
         <input
-          tabIndex={-1}
           onChange={handleDebounceSerch}
           type="text"
           placeholder="search movies"
