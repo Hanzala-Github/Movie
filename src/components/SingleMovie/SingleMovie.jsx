@@ -12,7 +12,7 @@ import { FaHeart } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { DownloadPop } from "./DownloadPop";
 import { SingleMovieTrailer } from "./SingleMovieTrailer";
-import { Loader, SummeryCast } from "../index";
+import { SummeryCast } from "../index";
 import Skeleton from "react-loading-skeleton";
 
 // .........This is the function component part........//

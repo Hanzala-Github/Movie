@@ -11,8 +11,6 @@ export function Pagination({ totalPages }) {
 
   const page = Number(queries.page || 1);
 
-  // const leftPages = Math.min(3, Math.max(page - 1, 0));
-
   const leftPages = Math.min(3, Math.max(page - 1, 0));
   const rightPages = Math.min(3, Math.max(totalPages - page, 0));
 

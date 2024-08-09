@@ -4,7 +4,6 @@ import { useGetSingleMovieWithImagesQuery } from "../../redux/features/MovieApi"
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { TrailerPopup } from "./TrailerPopup";
 import { TrailerImg } from "./TrailerImg";
-// import Skeleton from "react-loading-skeleton";
 
 export function SingleMovieTrailer({ id }) {
   const [trailer, setTrailer] = useState(false);

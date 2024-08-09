@@ -77,7 +77,6 @@ const Card = styled.div`
 
   .card-text {
     width: 50%;
-    /* background: red; */
     padding-inline: 20px;
     display: flex;
     justify-content: space-between;

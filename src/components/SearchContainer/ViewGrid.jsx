@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton";
 export function ViewGrid() {
   const location = useLocation();
 
-  const { data, isLoading, isSuccess } = useGetMoviesQuery(location.search);
+  const { data, isLoading } = useGetMoviesQuery(location.search);
 
   return (
     <Wrapper>

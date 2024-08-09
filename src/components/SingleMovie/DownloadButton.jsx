@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { FiDownload } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { textDecoration } from "@chakra-ui/react";
 
 export function DownloadButton(props) {
   const { quality, size, url, video_codec } = props;

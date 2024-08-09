@@ -1,5 +1,4 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 
 export function SummeryCast(props) {
@@ -168,11 +167,6 @@ const Wrapper = styled.div`
   }
   @media (max-width: 768px) {
     .SummeryCast {
-      /* max-width: 900px;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column; */
-
       .summeryUpload {
         width: 90%;
         justify-content: center;
@@ -184,12 +178,6 @@ const Wrapper = styled.div`
           }
         }
       }
-
-      /* .casts {
-        align-items: center;
-        justify-content: center;
-        margin-top: 20px;
-      } */
     }
   }
 `;

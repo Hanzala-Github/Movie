@@ -2,14 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { SearchListCard } from "./SearchListCard";
 import { useGetMoviesQuery } from "../../redux/features/MovieApi";
-import { Loader } from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 export function ViewFlex() {
   const location = useLocation();
 
-  const { data, isLoading, isSuccess } = useGetMoviesQuery(location.search);
+  const { data, isLoading } = useGetMoviesQuery(location.search);
 
   // .........This is the JSX return part...........//
   return (

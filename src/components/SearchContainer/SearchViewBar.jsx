@@ -10,8 +10,6 @@ export function SearchViewBar(props) {
   const { setShowView } = props;
   const [isGridActive, setIsGridActive] = useState(true);
 
-  // const [genresFilter, setGenresFilter] = useState(null);
-
   const location = useLocation();
   const navigate = useNavigate();
   const queries = queryString.parse(location.search);

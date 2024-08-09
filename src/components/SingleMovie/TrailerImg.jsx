@@ -12,7 +12,7 @@ export function TrailerImg({ src, onNextClick, onPrevClick, onClose }) {
           <FaChevronRight className="icon3" onClick={onNextClick} />
           <IoClose className="icon1" onClick={onClose} />
         </div>
-        <img src={src} />
+        <img src={src} alt="" />
       </div>
     </Wrapper>
   );

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import {
   Footer,
-  // Header,
   MovieContainer,
   SingleMovie,
   SearchContainer,
 } from "./components";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Header2 } from "./components/index";
