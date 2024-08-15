@@ -85,7 +85,7 @@ export function SearchDropdown(props) {
                       />
                     </div>
                     <div className="list-Text">
-                      <h3>{movie.title}</h3>
+                      <h3>{movie.title.slice(0, 35)}</h3>
                       <p>{movie.year}</p>
                     </div>
                   </List>
